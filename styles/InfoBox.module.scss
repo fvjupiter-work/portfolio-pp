@@ -1,0 +1,90 @@
+.pergament{
+    position: relative;
+    left: 0;
+    right: 0;
+    transition: 0.3s ease-in-out;
+    overflow: scroll;
+    padding-top: 5px;
+    z-index: 10;
+}
+.bracketCon{
+    position: relative;
+    height: 45px;
+    width: 422px;
+    left: 15px;
+}
+.arrowBox{
+    position: relative;
+    height: 32px;
+    width: 32px;
+    padding-top: 2px;
+}
+.arrowBoxWrap{
+    padding-left: 0;
+}
+.arrowBoxWrapOpen{
+    padding-left: 38px;
+}
+.arrowBoxWrapGeneral{
+    padding-left: 40px;
+}
+.contentBox{
+    align-items: center;
+    margin: auto;
+    padding-left: 1px;
+    width: 394px;
+}
+.contentBoxVar{
+    position: absolute;
+    z-index: 2;
+    top: 34px;
+    left: 24px;
+    width: 406px;
+}
+.aboutDiv > p:last-child{
+    margin-bottom: 0;
+}
+.title{
+    width: 110px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+// mobile
+@media only screen and (max-width: 485px) {
+    .pergament{
+        width: 100%;
+    }
+    .bracketConMargin{
+        margin-bottom: 10px;
+    }
+    .bracketCon{
+        height: 33px;
+        width: 332px;
+    }
+    .arrowBox{
+        position: relative;
+        height: 40px;
+        width: 40px;
+    }
+    .contentBox{
+        align-items: center;
+        margin: auto;
+        width: 310px;
+    }
+    .contentBoxVar{
+        position: absolute;
+        z-index: 2;
+        top: 23px;
+        left: 21px;
+        width: 321px;
+
+    }
+    .arrowBoxWrapOpen{
+        padding-left: 35px;
+    }
+    .arrowBoxWrapGeneral{
+        padding-left: 37px;
+    }
+}

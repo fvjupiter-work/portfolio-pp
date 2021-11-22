@@ -1,0 +1,161 @@
+.page{
+    width: 100%;
+    height: 100vh;
+    background-position: 50% 50%;
+  }
+.con{
+    display: block;
+    position: relative;
+    border: 1px solid rgb(160, 160, 160);
+    box-shadow: 0 0 3px;
+    margin: auto;
+    overflow: hidden;
+    background: white;
+    transition: 0.3s ease-in-out;
+}
+.conHeightNorm{
+    height: 786px;
+}
+.conHeightProject{
+    height: 937px;
+}
+.conWidthNorm{
+    width: 455px;
+}
+.conWidthProject{
+    width: 814px;
+}
+
+.childrenBox{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+    height: 728px;
+    padding: 9px 0;
+}
+.childrenBoxZero{
+    height: 0 !important;
+    padding: 0;
+}
+.childrenBoxProject{
+    height: 879px;
+}
+
+.infoBox{
+    position: absolute;
+    bottom: 56px;
+    width: 100%;
+    transition: 0.3s ease-in-out;
+    overflow: hidden;
+    padding-left: 0;
+    height: 0;
+    background: white;
+}
+.infoBoxVar2{ height: 728px; }
+
+.controlsCon{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 0 8px;
+    border-top: 1px solid rgb(160, 160, 160);
+    height: 56px;
+}
+.controlsInnerBox{
+    justify-content: space-between;
+    width: 794px;
+}
+.controlsLeft{
+    justify-content: space-between;
+    width: 56px;
+}
+.controlsLeftProject{
+    width: 68px;
+}
+
+.shuffleWrap{
+    padding-bottom: 3px;
+    margin-bottom: -2px;
+    transition: 0.3s ease-in-out;
+}
+
+.infoSVG{ height: 25px; width: 25px;}
+.shuffleSVG{ width: 22px; height: 25px; }
+.textSVG{ height: 40.3px; width: 40.3px; margin-top: 1px; }
+
+.infoButtProject{
+    padding-top: 0px;
+}
+.infoButt{
+    padding-top: 2px;
+}
+.textButtProject{
+    display: none;
+}
+.textButt{
+    display: none;
+}
+
+.buttonBox{
+    justify-content: space-between;
+    width: 176px;
+}
+.button{
+    border-radius: 1px;
+    height: 37px;
+    width: 89px;
+    color: white;
+}
+.buttonContact{
+    width: 79px;
+}
+
+// small Desktop
+@media only screen and (max-width: 860px) {
+    .conHeightProject{ height: 786px; }
+    .conWidthProject{ width: 455px; }
+    .childrenBoxSmallScreen{ height: 36px; }
+    .infoBoxVar2{ height: 728px; }
+    .infoBoxVar3{ height: 36px; }
+    .controlsInnerBox{ width: 435px; }
+    .textButtProject{ display: block; padding-top: 2px;}
+    .infoButtProject{ padding-top: 0; }
+}
+
+// mobile
+@media only screen and (max-width: 485px) {
+    .con{ height: 653px; width: 361px; }
+    .conHeightProject{ height: 653px; }
+    .conWidthProject{ width: 361px; }
+    .childrenBox{ padding: 7px 0; height: 600px; }
+    .childrenBoxSmallScreen{ height: 36px; }
+
+    .infoBox{ bottom: 51px;}
+    .infoBoxVar2{ height: 600px; } //
+    .infoBoxVar3{ height: 36px; } //
+
+    .infoSVG{ height: 30px; width: 30px;}
+    .shuffleSVG{ width: 29px; height: 33px; }
+    .textSVG{ height: 48.5px; width: 48.5px; margin-top: 0px; }
+    .shuffleWrap{ padding-bottom: 4px; margin-bottom: -4px; }
+    .infoButtProject{ padding-top: 5px; }
+    .infoButt{ padding-top: 5px; }
+
+    .controlsCon{ height: 51px; width: 359px; }
+    .controlsInnerBox{ width: 100%; }
+    .controlsLeft{ width: 75px; }
+    .controlsLeftProject{ width: 85px; }
+    .textButtProject{ display: block; padding-top: 2px;}
+    .infoButtProject{ padding-top: 0; }
+
+    .buttonBox{ width: 155.27px; }
+    .button{ height: 35.66px; width: 78px;}
+    .buttonContact{ width: 70px; }
+    .textButtProject{ display: block; padding-top: 4px;}
+    .infoButtProject{ padding-top: 1px; }
+}
+

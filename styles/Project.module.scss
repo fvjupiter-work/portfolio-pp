@@ -1,0 +1,100 @@
+.con{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 9px;
+    height: 861px;
+  }
+.rightCon{
+    width: 600px;
+    height: 861px;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    align-items: flex-start;
+}
+.leftCon{
+    width: 198px;
+    padding-right: 9px;
+    display: block;
+}
+.smallImgCon {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.bigImgWrap{
+    width: 600px;
+    height: 861px;
+    position: relative;
+    overflow: hidden;
+}
+.smallImgBox{
+    border: 1px solid black;
+    margin-bottom: 9px;
+    padding: 2px;
+    padding-bottom: 0;
+    background: white;
+    overflow: hidden;
+}
+.smallImgWrap{
+    position: relative;
+    overflow: hidden;
+    height: 84px;
+    width: 84px;
+}
+
+.num{
+    margin-top: 2px;
+    position: relative;
+    bottom: 0;
+    background: white;
+}
+.contentCon{
+    position: absolute;
+    bottom: 0;
+    width: 189px;
+}
+.buttonBox{
+    width: fit-content;
+    margin-left: -3px;
+    margin-bottom: 3px;
+    justify-content: space-between;
+}
+.arrowWrap{
+    height: 31.5px; 
+    width: 31.5px;
+}
+.arrowLeftSVG{
+
+}
+.title{
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+// .content{
+
+// }
+
+@media only screen and (max-width: 860px) {
+    .con{height: 710px;}
+    .rightCon{
+      width: 435px;
+      height: 683px;
+      display: flex;
+    }
+    .leftCon{
+      display: none;
+    }
+    .bigImgWrap{
+      width: 435px;
+      height: 683px;
+    }
+  }
+  
+// mobile
+@media only screen and (max-width: 485px) {
+    .rightCon{ height: 557px; }
+}

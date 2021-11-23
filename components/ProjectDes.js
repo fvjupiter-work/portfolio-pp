@@ -24,7 +24,7 @@ export default function ProjectDes({ show }) {
         //     [MARKS.BOLD]: text => <>{text}</>,
         // },
         renderNode: {
-            [INLINES.HYPERLINK]: (node, children) => <a target='_blank' href={node.data.uri}>{children}</a>,
+            [INLINES.HYPERLINK]: (node, children) => <a target='_blank' rel="noreferrer" href={node.data.uri}>{children}</a>,
         },
         // renderText: text => text.replace('!', '?'),
     };

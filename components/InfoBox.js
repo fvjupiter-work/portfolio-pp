@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { dataState, isInfoState, isProjectInfoState } from '../lib/state'
 import Image from 'next/image'
+import { INLINES } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import ArrowRight from './svg/ArrowRight'
 import styles from '../styles/InfoBox.module.scss'
@@ -80,13 +81,23 @@ export default function InfoBox({ isProjectRoute }) {
         </>
     }
 
+    // OPTIONS FOR RICHTEXT RENDERER
+    const richText_Options = {
+        // renderMark: {
+        //     [MARKS.BOLD]: text => <>{text}</>,
+        // },
+        renderNode: {
+            [INLINES.HYPERLINK]: (node, children) => <a target='_blank' rel="noreferrer" href={node.data.uri}>{children}</a>,
+        },
+        // renderText: text => text.replace('!', '?'),
+    };
     return (
         <div style={{ opacity: isInfo ? 1 : 0, display: !isInfo && !isProjectInfo && 'none' }} 
             className={`${styles.pergament} ${isProjectRoute ? styles.pergamentProject : ''}`}>
             <BracketCon />
             {getBlock({ id: 0, show: true, children: data.generalInfo})}
-            {getBlock({ id: 1, show: isGeneral, title: data.cvTitle, children: data.cv ? documentToReactComponents(data.cv) : ''})}
-            {getBlock({ id: 2, show: isGeneral, title: data.aboutTitle, children: data.cv ? documentToReactComponents(data.about) : ''})}
+            {getBlock({ id: 1, show: isGeneral, title: data.cvTitle, children: data.cv ? documentToReactComponents(data.cv, richText_Options) : ''})}
+            {getBlock({ id: 2, show: isGeneral, title: data.aboutTitle, children: data.cv ? documentToReactComponents(data.about, richText_Options) : ''})}
             <BracketCon turn={true}/>
         </div>
     )

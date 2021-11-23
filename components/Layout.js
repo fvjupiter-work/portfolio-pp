@@ -79,95 +79,98 @@ export default function Layout({ children }) {
         <Head>
             <title>Peter Plügler</title>
             <meta name="Portfolio" content="Projects of Peter Plügler" />
-            <link rel="icon" href="/images/Peter_Pluegler_10.png" />
+            <link rel="icon" type="image/png" href="/peterFavicon.png" />
         </Head>
 
-        <div 
-            className={`
-                ${styles.con} ${isProjectRoute 
-                && !isInfo? 
-                styles.conHeightProject 
-                : styles.conHeightNorm} 
-                ${isProjectRoute && !isInfo ? 
-                styles.conWidthProject : 
-                styles.conWidthNorm}
-            `}>
-
-            <div
+        <div className={styles.wrap}>
+            <div 
                 className={`
-                    ${styles.childrenBox} 
-                    ${isInfo || isProjectInfo ? 
-                    styles.childrenBoxZero 
-                    : isProjectRoute ? 
-                    styles.childrenBoxProject : ''}
-                `}
-                >
-                {children}
-            </div>
+                    ${styles.con} ${isProjectRoute 
+                    && !isInfo? 
+                    styles.conHeightProject 
+                    : styles.conHeightNorm} 
+                    ${isProjectRoute && !isInfo ? 
+                    styles.conWidthProject : 
+                    styles.conWidthNorm}
+                `}>
 
-            <div
-                className={`${styles.infoBox} 
-                    ${isInfo || isProjectInfo ?
-                    styles.infoBoxVar2
-                    : isProjectRoute ?
-                    styles.infoBoxVar3
-                    : ''}
-                `}
-                >
-                <InfoBox isProjectRoute={isProjectRoute}/>
-                <ProjectDes show={isProjectRoute && !isInfo}/>
-            </div>
+                <div
+                    className={`
+                        ${styles.childrenBox} 
+                        ${isInfo || isProjectInfo ? 
+                        styles.childrenBoxZero 
+                        : isProjectRoute ? 
+                        styles.childrenBoxProject : ''}
+                    `}
+                    >
+                    {children}
+                </div>
 
-            <div className={`flexCenter ${styles.controlsCon}`}>
-                <div className={`flexCenter ${styles.controlsInnerBox} 
-                        ${isProjectRoute ? styles.controlsInnerBox : ''}`
-                    }>
-                    <div className={`flexCenter ${styles.controlsLeft} 
-                            ${isProjectRoute ? styles.controlsLeftProject : ''}`
+                <div
+                    className={`${styles.infoBox} 
+                        ${isInfo || isProjectInfo ?
+                        styles.infoBoxVar2
+                        : isProjectRoute ?
+                        styles.infoBoxVar3
+                        : ''}
+                    `}
+                    >
+                    <InfoBox isProjectRoute={isProjectRoute}/>
+                    <ProjectDes show={isProjectRoute && !isInfo}/>
+                </div>
+
+                <div className={`flexCenter ${styles.controlsCon}`}>
+                    <div className={`flexCenter ${styles.controlsInnerBox} 
+                            ${isProjectRoute ? styles.controlsInnerBox : ''}`
                         }>
-                        <div onClick={toggleInfo} className={`${isProjectRoute ? 
-                                styles.infoButtProject : styles.infoButt} flexCenter transit`
+                        <div className={`flexCenter ${styles.controlsLeft} 
+                                ${isProjectRoute ? styles.controlsLeftProject : ''}`
                             }>
-                            <Info isClicked={isInfo} styles={styles}/>
-                        </div>
-                        <div style={{ borderRadius: '100%' }} onClick={toggleProjectInfo} 
-                            className={`flexCenter ${isProjectRoute ? styles.textButtProject : styles.textButt}`}>
-                            <TextButton isClicked={isProjectInfo} styles={styles}/>
-                        </div> 
-                        {pathname == '/' ?
-                            <div 
-                                style={{ transform: `rotate(${shuffleRotate}deg)`}}
-                                onClick={!isInfo ? shuffle : null}
-                                className={`flexCenter ${styles.shuffleWrap}`}
-                                >
-                                    <Shuffle styles={styles}/>
-                            </div> 
-                        : null}
-                    </div>
-                    <div className={`flexCenter ${styles.buttonBox}`}>
-                        <div 
-                            style={{ 
-                                background: disabled ? 'rgb(128,128,128)' 
-                                    : buttonHover == 1 ? 
-                                    accentColorHover 
-                                    : accentColor,
-                                color: disabled ? 'rgb(200,200,200)' : 'white'
-                            }}
-                            onClick={toggleButt1}
-                            onMouseEnter={() => setbuttonHover(1)}
-                            onMouseLeave={() => setbuttonHover(-1)}
-                            className={`font flexCenter ${styles.button} transit`}
-                            >
-                                {pathname != '/' || isInfo ? 'go back' : 'see more'}
-                        </div>
-                        <a href={`mailto:${data.mailAddress}`}>
-                            <div style={{ background: buttonHover == 2 ? accentColorHover : accentColor }} 
-                                onMouseEnter={() => setbuttonHover(2)}
-                                onMouseLeave={() => setbuttonHover(-1)}
-                                className={`font flexCenter ${styles.button} ${styles.buttonContact} transit`}>
-                                contact
+                            <div onClick={toggleInfo} className={`${isProjectRoute ? 
+                                    styles.infoButtProject : styles.infoButt} flexCenter transit`
+                                }>
+                                <Info isClicked={isInfo} styles={styles}/>
                             </div>
-                        </a>
+                            <div style={{ borderRadius: '100%' }} onClick={toggleProjectInfo} 
+                                className={`flexCenter ${isProjectRoute ? styles.textButtProject : styles.textButt}`}>
+                                <TextButton isClicked={isProjectInfo} styles={styles}/>
+                            </div> 
+                            {pathname == '/' ?
+                                <div 
+                                    style={{ transform: `rotate(${shuffleRotate}deg)`}}
+                                    onClick={!isInfo ? shuffle : null}
+                                    className={`flexCenter ${styles.shuffleWrap}`}
+                                    >
+                                        <Shuffle styles={styles}/>
+                                </div> 
+                            : null}
+                        </div>
+                        <div className={`flexCenter ${styles.buttonBox}`}>
+                            <div 
+                                style={{ 
+                                    background: disabled ? 'rgb(128,128,128)' 
+                                        : buttonHover == 1 ? 
+                                        accentColorHover 
+                                        : accentColor,
+                                    color: disabled ? 'rgb(200,200,200)' : 'white',
+                                    cursor: disabled && 'default',
+                                }}
+                                onClick={toggleButt1}
+                                onMouseEnter={() => setbuttonHover(1)}
+                                onMouseLeave={() => setbuttonHover(-1)}
+                                className={`font flexCenter ${styles.button} transit`}
+                                >
+                                    {pathname != '/' || isInfo ? 'go back' : 'see more'}
+                            </div>
+                            <a href={`mailto:${data.mailAddress}`} style={{textDecoration: 'none'}}>
+                                <div style={{ background: buttonHover == 2 ? accentColorHover : accentColor }} 
+                                    onMouseEnter={() => setbuttonHover(2)}
+                                    onMouseLeave={() => setbuttonHover(-1)}
+                                    className={`font flexCenter ${styles.button} ${styles.buttonContact} transit`}>
+                                    contact
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -13,9 +13,25 @@ a {
 
 * {
   box-sizing: border-box;
-  cursor: default;
   white-space: pre-line;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
+*::-webkit-scrollbar {
+  display: none;
+}
+a{
+  cursor: pointer;
+  color: rgb(25, 0, 255);
+  text-decoration: underline;
+}
+a:active{
+  color: rgb(247, 0, 255);
+  text-decoration: none;
+}
+/* a:visited{
+  color: rgb(132, 0, 255);
+} */
 
 .font{
   font-size: 13px;

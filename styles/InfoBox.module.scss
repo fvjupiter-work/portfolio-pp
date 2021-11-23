@@ -2,9 +2,10 @@
     position: relative;
     left: 0;
     right: 0;
+    height: 728px;
     transition: 0.3s ease-in-out;
     overflow: scroll;
-    padding-top: 5px;
+    padding-top: 13px;
     z-index: 10;
 }
 .bracketCon{
@@ -12,12 +13,14 @@
     height: 45px;
     width: 422px;
     left: 15px;
+    // background: goldenrod;
 }
 .arrowBox{
     position: relative;
     height: 32px;
     width: 32px;
     padding-top: 2px;
+    cursor: pointer;
 }
 .arrowBoxWrap{
     padding-left: 0;
@@ -33,14 +36,19 @@
     margin: auto;
     padding-left: 1px;
     width: 394px;
+    // background: hotpink;
 }
 .contentBoxVar{
     position: absolute;
     z-index: 2;
-    top: 34px;
+    top: 42px;
     left: 24px;
     width: 406px;
+    // background: pink;
 }
+// .des{
+//     margin-top: 8 !important;
+// }
 .aboutDiv > p:last-child{
     margin-bottom: 0;
 }
@@ -48,13 +56,14 @@
     width: 110px;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 
 // mobile
 @media only screen and (max-width: 485px) {
     .pergament{
         width: 100%;
+        height: 600px;
     }
     .bracketConMargin{
         margin-bottom: 10px;
@@ -76,15 +85,17 @@
     .contentBoxVar{
         position: absolute;
         z-index: 2;
-        top: 23px;
+        top: 31px;
         left: 21px;
         width: 321px;
-
     }
     .arrowBoxWrapOpen{
         padding-left: 35px;
     }
     .arrowBoxWrapGeneral{
         padding-left: 37px;
+    }
+    .desIsGeneral{
+        margin-top: 5px !important;
     }
 }

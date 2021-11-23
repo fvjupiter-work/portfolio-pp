@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
-import { dataState, isInfoState } from '../lib/state'
+import { dataState, isInfoState, isProjectInfoState } from '../lib/state'
 import Image from 'next/image'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import ArrowRight from './svg/ArrowRight'
@@ -9,6 +9,7 @@ import styles from '../styles/InfoBox.module.scss'
 export default function InfoBox({ isProjectRoute }) {
     const data = useRecoilValue(dataState)
     const isInfo = useRecoilValue(isInfoState)
+    const isProjectInfo = useRecoilValue(isProjectInfoState)
     const [isGeneral, setisGeneral] = useState(false)
     const [isCV, setisCV] = useState(false)
     const [isAbout, setisAbout] = useState(false)
@@ -33,7 +34,7 @@ export default function InfoBox({ isProjectRoute }) {
     const BracketCon = ({ turn }) => <div 
         style={{ transform: turn ? `rotate(180deg)` : `rotate(0deg)` }}
         className={`flexCenter ${styles.bracketCon} ${!isGeneral ? styles.bracketConMargin : ''}`}>
-        <Image src='/icons/bracketTrans.png' layout='fill' objectFit='contain' />
+        <Image src='/bracketTrans.png' layout='fill' objectFit='contain' />
     </div>
 
     const getBlock = ({ id, show, title, children }) => {
@@ -60,10 +61,18 @@ export default function InfoBox({ isProjectRoute }) {
                         </div> 
                     : null}
                     <div style={{ 
-                            marginTop: isGeneral && id == 0 ? 8 : 0,
+                            marginTop: isGeneral && id == 0 ? 15 : 0,
                             marginBottom: !isGeneral || id == 2 ? 0 : 18, 
-                            paddingLeft: !isGeneral ? 3 : 0
-                        }} className={`font ${id == 2 ? styles.aboutDiv : ''}`}>
+                            paddingLeft: !isGeneral ? 3 : 0,
+                            height: !isGeneral ? 15 : 'fit-content', // no text crumble
+                            overflow: 'hidden',
+                        }} 
+                        className={`
+                            font 
+                            ${id == 2 ? styles.aboutDiv : ''} 
+                            ${isGeneral ? styles.desIsGeneral : ''}
+                        `}
+                        >
                         {id == 0 || isOpen ? children : null}
                     </div>
                 </div>
@@ -72,7 +81,7 @@ export default function InfoBox({ isProjectRoute }) {
     }
 
     return (
-        <div style={{ opacity: isInfo ? 1 : 0 }} 
+        <div style={{ opacity: isInfo ? 1 : 0, display: !isInfo && !isProjectInfo && 'none' }} 
             className={`${styles.pergament} ${isProjectRoute ? styles.pergamentProject : ''}`}>
             <BracketCon />
             {getBlock({ id: 0, show: true, children: data.generalInfo})}

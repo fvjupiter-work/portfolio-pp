@@ -36,6 +36,7 @@
     width: 143px;
     margin-top: 3px;
     overflow: hidden;
+    cursor: pointer;
 }
 .imgWrap{
     position: relative;
@@ -47,22 +48,27 @@
     height: 125px;
     width: 125px;
 }
-.picTitle{
+.picTitle{ ///////////////
     position: relative;
+    width: 100px; 
     bottom: 21px;
     padding-left: 8px;
     color: white;
     overflow: hidden;
+    height: 18px;
 }
-.picCheck{
+.picCheck{ // moves in safari if hover?!
     position: relative;
     display: flex;
     justify-content: flex-end;
-    width: 100%;
-    bottom: 38.5px; 
-    right: -10px;
+    bottom: 40px; 
+    // right: -10px;
     text-align: end;
     color: white;
+    // background-color: yellowgreen;
+    // width: 100%;
+    left: 102px;
+    width: fit-content;
 }
 .arrowSVG{
     height: 34px;
@@ -97,14 +103,15 @@
         // height: 39px;
     }
     .picTitle{ 
-        // width: 72px; 
+        width: 71px; 
         font-size: 11px; 
         padding-left: 4px; 
         bottom: 17px;
         height: 12px;
     }
     .picCheck{
-        bottom: 40px; right: -12px;
+        bottom: 40px; //right: -12px;
+        left: 68px;
     }
     .arrowSVG{
         height: 39px;

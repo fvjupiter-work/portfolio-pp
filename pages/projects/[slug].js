@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { 
     projectPicIdState, 
@@ -9,9 +9,12 @@ import {
     isInfoState
 } from '../../lib/state'
 import Image from 'next/image'
-import Fade from '../../components/Fade'
+
 import { createClient } from 'contentful'
+import { INLINES } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
+
+import Fade from '../../components/Fade'
 import ArrowRight from '../../components/svg/ArrowRight'
 import ArrowLeft from '../../components/svg/ArrowLeft'
 import styles from '../../styles/Project.module.scss'
@@ -51,10 +54,33 @@ export default function Project({ project, bgImages, dataFields }) {
         {turn ? <ArrowLeft /> : <ArrowRight /> }
     </div>
 
+    // OPTIONS FOR RICHTEXT RENDERER
+    const richText_Options = {
+        // renderMark: {
+        //     [MARKS.BOLD]: text => <>{text}</>,
+        // },
+        renderNode: {
+            [INLINES.HYPERLINK]: (node, children) => <a target='_blank' href={node.data.uri}>{children}</a>,
+        },
+        // renderText: text => text.replace('!', '?'),
+    };
+
+    const contentConRef = useRef()
+    const leftConRef = useRef()
+    const [smallImgBox_height, setsmallImgBox_height] = useState(0)
+    useEffect(() => {
+        setsmallImgBox_height(
+            leftConRef.current.clientHeight 
+            - contentConRef.current.clientHeight 
+            - 10
+        )
+    }, [])
     return (
         <div className={`${styles.con}`}>
-                <div className={`${styles.leftCon}`}>
-                    <div className={`${styles.smallImgCon}`}>
+                <div className={`${styles.leftCon}`} ref={leftConRef}>
+                    <div style={{ height: smallImgBox_height }} 
+                        className={`${styles.smallImgCon}`}
+                        >
                         {images.map((pic, index) => <Fade 
                             key={index} 
                             delay={0.2 * index} 
@@ -64,14 +90,14 @@ export default function Project({ project, bgImages, dataFields }) {
                             <div style={{ 
                                     borderColor: index == projectPicId ? accentColor : 'black', 
                                     opacity: isInfo ? 0 : 1, 
-                                    transition: '0.1s', 
+                                    transition: 'opacity 0.1s', 
                                     transitionDelay: isInfo ? '0s' : '0.3s'
                                 }} 
+                                onClick={() => setprojectPicId(index)}
                                 className={`${styles.smallImgBox}`}
                                 >
                                 <div className={`${styles.smallImgWrap}`}>
                                     <div 
-                                        onClick={() => setprojectPicId(index)}
                                         className={`scaleHover transit ${styles.smallImgWrap}`}
                                         >
                                         <Image 
@@ -89,21 +115,23 @@ export default function Project({ project, bgImages, dataFields }) {
                             </div>
                         </Fade>)}
                     </div>
-                    <div className={`${styles.contentCon}`}>
+                    <div className={`${styles.contentCon}`} ref={contentConRef}>
                         <div className={`flexCenter ${styles.buttonBox}`}>
                             {getArrow(true)}
                             {getArrow()}
                         </div>
                         <div className={`font ${styles.title}`}>{title}</div>
                         <div className={`font ${styles.content}`}>
-                            {documentToReactComponents(description)}
+                            {documentToReactComponents(description, richText_Options)}
                         </div>
                     </div>
                 </div>
             <div className={`flexCenter ${styles.rightCon}`}>
+            {/* <div className={styles.nextClick} onClick={() => setprojectPicId(projectPicId < images.length-1 ? projectPicId+1 : 0)}></div> */}
                 <Fade delay={0.2} duratio={0.8} scale={[0.8, 1]}>
                     <div className={`transit ${styles.bigImgWrap}`}>
-                        <Image       
+                        <Image     
+                        onClick={() => setprojectPicId(projectPicId < images.length-1 ? projectPicId+1 : 0)}  
                             alt='shotByPeter'             
                             src={`https:${projectPicId == -1 ? 
                                 thumbnail.fields.file.url 

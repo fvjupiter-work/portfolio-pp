@@ -11,7 +11,7 @@
 .smallTitleBox{
     background: white;
     position: absolute;
-    top:10px;
+    top: 10px;
     left: 9px;
     right: 9px;
     transition: 0.3s ease-in-out;
@@ -19,12 +19,15 @@
     justify-content: space-between;
     opacity: 0;
 }
+.smallTitleBoxProject{
+    top: 7px;
+}
 .smallScreenTitle{
     font-weight: 700;
 }
 .des{
     position: absolute; 
-    top: 9px;
+    top: 3px;
     left: 9px; 
     right: 9px;
     bottom: 9px;

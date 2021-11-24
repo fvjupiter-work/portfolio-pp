@@ -110,10 +110,10 @@
   
 // mobile
 @media only screen and (max-width: 485px) {
-    .con{ height: 556px; }
-    .rightCon{ height: 556px; width: 342.5px; }
+    .con{ height: 556px; padding: 0 7px; }
+    .rightCon{ height: 556px; width: 344.5px; }
     .bigImgWrap{
-        width: 342.5px;
+        width: 344.5px;
         height: 556px;
         // border-bottom: 1px solid green;
       }

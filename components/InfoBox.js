@@ -4,6 +4,7 @@ import { dataState, isInfoState, isProjectInfoState } from '../lib/state'
 import Image from 'next/image'
 import { INLINES } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+// import Bracket from './svg/Bracket'
 import ArrowRight from './svg/ArrowRight'
 import styles from '../styles/InfoBox.module.scss'
 
@@ -34,7 +35,8 @@ export default function InfoBox({ isProjectRoute }) {
     
     const BracketCon = ({ turn }) => <div 
         style={{ transform: turn ? `rotate(180deg)` : `rotate(0deg)` }}
-        className={`flexCenter ${styles.bracketCon} ${!isGeneral ? styles.bracketConMargin : ''}`}>
+        className={`flexCenter ${styles.bracketCon} ${!isGeneral && styles.bracketConMargin}`}>
+            {/* <Bracket styles={styles}/> */}
         <Image src='/bracketTrans.png' layout='fill' objectFit='contain' />
     </div>
 
@@ -65,7 +67,7 @@ export default function InfoBox({ isProjectRoute }) {
                             marginTop: isGeneral && id == 0 ? 15 : 0,
                             marginBottom: !isGeneral || id == 2 ? 0 : 18, 
                             paddingLeft: !isGeneral ? 3 : 0,
-                            height: !isGeneral ? 15 : 'fit-content', // no text crumble
+                            height: !isGeneral ? 17 : 'fit-content', // no text crumble
                             overflow: 'hidden',
                         }} 
                         className={`
@@ -95,9 +97,13 @@ export default function InfoBox({ isProjectRoute }) {
         <div style={{ opacity: isInfo ? 1 : 0, display: !isInfo && !isProjectInfo && 'none' }} 
             className={`${styles.pergament} ${isProjectRoute ? styles.pergamentProject : ''}`}>
             <BracketCon />
-            {getBlock({ id: 0, show: true, children: data.generalInfo})}
-            {getBlock({ id: 1, show: isGeneral, title: data.cvTitle, children: data.cv ? documentToReactComponents(data.cv, richText_Options) : ''})}
-            {getBlock({ id: 2, show: isGeneral, title: data.aboutTitle, children: data.cv ? documentToReactComponents(data.about, richText_Options) : ''})}
+            {getBlock({ id: 0, show: true, children: data.generalInfo })}
+            {getBlock({ id: 1, show: isGeneral, title: data.cvTitle, 
+                children: data.cv && documentToReactComponents(data.cv, richText_Options) 
+            })}
+            {getBlock({ id: 2, show: isGeneral, title: data.aboutTitle, 
+                children: data.cv && documentToReactComponents(data.about, richText_Options) 
+            })}
             <BracketCon turn={true}/>
         </div>
     )

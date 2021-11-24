@@ -75,6 +75,15 @@ export default function Project({ project, bgImages, dataFields }) {
             - 10
         )
     }, [])
+
+
+    const [mouseXPos, setmouseXPos] = useState(0)
+    const [imgPos, setimgPos] = useState(0)
+    const setPos = (e) => {
+        console.log(e.screenX, e.screenY)
+    }
+
+    
     return (
         <div className={`${styles.con}`}>
                 <div className={`${styles.leftCon}`} ref={leftConRef}>
@@ -132,6 +141,9 @@ export default function Project({ project, bgImages, dataFields }) {
                     <div className={`transit ${styles.bigImgWrap}`}>
                         <Image     
                         onClick={() => setprojectPicId(projectPicId < images.length-1 ? projectPicId+1 : 0)}  
+                        onMouseDownCapture={e => console.log('mousedown',e.screenX)}
+                        onMouseUpCapture={e => console.log('mouseup',e.screenX)}
+                        onMouseMove={(e) => setmouseXPos(e.screenX)}
                             alt='shotByPeter'             
                             src={`https:${projectPicId == -1 ? 
                                 thumbnail.fields.file.url 

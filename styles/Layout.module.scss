@@ -22,7 +22,7 @@
     align-items: center;
     // align-content: center;
     // background: greenyellow;
-    padding: 10px 0;
+    padding: 2px 0;
 }
 .con{
     display: block;
@@ -145,7 +145,7 @@
 @media only screen and (max-width: 860px) {
     .conHeightProject{ height: 786px; }
     .conWidthProject{ width: 455px; }
-    .childrenBox{ padding: 8px 0; height: 728px;}
+    .childrenBox{ padding: 9px 0; height: 728px;}
     .childrenBoxSmallScreen{ height: 36px; }
     .infoBoxVar2{ height: 728px; }
     .infoBoxVar3{ height: 36px; }
@@ -156,12 +156,12 @@
 
 // mobile
 @media only screen and (max-width: 485px) {
-    .con{ height: 653px; width: 361px; }
-    .childrenBox{ padding: 8px 0; height: 600px; }
+    .con{ height: 652px; width: 361px; }
+    .childrenBox{ padding: 7px 0; height: 599px; }
     .childrenBoxSmallScreen{ height: 36px; }
 
     .infoBox{ bottom: 51px;}
-    .infoBoxVar2{ height: 600px; } //
+    .infoBoxVar2{ height: 599px; } //
     .infoBoxVar3{ height: 36px; } //
 
     .infoSVG{ height: 30px; width: 30px;}

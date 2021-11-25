@@ -6,13 +6,13 @@ export default function Bracket({ styles }) {
                 viewBox="0 0 368.9 55.8" style={{enableBackground:'new 0 0 368.9 55.8'}} className={styles.bracket} xmlSpace="preserve">
         <style type="text/css">
             {`
-            .st0{fill:none;stroke:#000000;}
-            .st1{fill:none;stroke:#000000;stroke-miterlimit:10;}
+            .st5{fill:none;stroke:#000000;}
+            .st4{fill:none;stroke:#000000;stroke-miterlimit:10;}
             `}
         </style>
-        <path className="st0" d="M280.3,46c0-9.5,3.2-14.4,15-14.4"/>
-        <path className="st0" d="M20,17.2c0,9.2,4.8,14.4,15,14.4h42.1l0,0h179.3l-0.2,0c11.8,0,15,4.9,15,14.4"/>
-        <path className="st1" d="M352.2,17.2c0,9.2-4.8,14.4-15,14.4h-42.1"/>
+        <path className="st5" d="M280.3,46c0-9.5,3.2-14.4,15-14.4"/>
+        <path className="st5" d="M20,17.2c0,9.2,4.8,14.4,15,14.4h42.1l0,0h179.3l-0.2,0c11.8,0,15,4.9,15,14.4"/>
+        <path className="st4" d="M352.2,17.2c0,9.2-4.8,14.4-15,14.4h-42.1"/>
         </svg>
    
     )

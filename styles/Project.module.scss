@@ -20,6 +20,8 @@
     position: relative;
     overflow: hidden;
     align-items: flex-start;
+    justify-content: center;
+    z-index: 10;
     // background: chocolate;
 }
 .leftCon{
@@ -91,6 +93,14 @@
 // .content{
 
 // }
+// .slideWrap{
+//     display: none;
+// }
+
+.checkScreen{
+    height: 0;
+    width: 4px;
+}
 
 @media only screen and (max-width: 860px) {
     .con{height: 710px; padding: 0 8px;}
@@ -106,6 +116,10 @@
       width: 437px;
       height: 683px;
     }
+    .checkScreen{
+        height: 0;
+        width: 3px;
+    }
   }
   
 // mobile
@@ -117,4 +131,11 @@
         height: 556px;
         // border-bottom: 1px solid green;
       }
+    //   .slideWrap{
+    //     display: block;
+    // }
+    .checkScreen{
+        height: 0;
+        width: 2px;
+    }
 }

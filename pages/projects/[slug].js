@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useLayoutEffect } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { 
     projectPicIdState, 
@@ -18,12 +18,13 @@ import Fade from '../../components/Fade'
 import ArrowRight from '../../components/svg/ArrowRight'
 import ArrowLeft from '../../components/svg/ArrowLeft'
 import styles from '../../styles/Project.module.scss'
+import Slide from '../../components/Slide'
 
 export default function Project({ project, bgImages, dataFields }) {
 
     const { title, description, thumbnail, featuredImages } = project.fields
     const images = [...featuredImages]
-    images.unshift(thumbnail)
+    // images.unshift(thumbnail)
 
     // states
     const setdata = useSetRecoilState(dataState)
@@ -68,6 +69,8 @@ export default function Project({ project, bgImages, dataFields }) {
     const contentConRef = useRef()
     const leftConRef = useRef()
     const [smallImgBox_height, setsmallImgBox_height] = useState(0)
+    const checkScreenRef = useRef()
+    const [screenFormat, setscreenFormat] = useState(4)
     useEffect(() => {
         setsmallImgBox_height(
             leftConRef.current.clientHeight 
@@ -76,15 +79,18 @@ export default function Project({ project, bgImages, dataFields }) {
         )
     }, [])
 
+    useEffect(() => {
+        setscreenFormat(checkScreenRef.current.clientWidth)
+        console.log('screenFormat: ', checkScreenRef.current.clientWidth)
+        const myObserver = new ResizeObserver(entries => {
+            entries.forEach(entry => {
+              if(typeof entry == 'object') console.log('width', entry.contentRect.width);
+            })
+          })
+        myObserver.observe(checkScreenRef.current)
+    }, [])
 
-    const [mouseXPos, setmouseXPos] = useState(0)
-    const [imgPos, setimgPos] = useState(0)
-    const setPos = (e) => {
-        console.log(e.screenX, e.screenY)
-    }
-
-    
-    return (
+    return <>
         <div className={`${styles.con}`}>
                 <div className={`${styles.leftCon}`} ref={leftConRef}>
                     <div style={{ height: smallImgBox_height }} 
@@ -135,15 +141,29 @@ export default function Project({ project, bgImages, dataFields }) {
                         </div>
                     </div>
                 </div>
+                {/* <div className={`flexCenter ${styles.rightCon}`}>
+                    <div className={styles.slideWrap}>
+                        <Slide boxList={images.map((pic, index) => { 
+                            return (
+                                <Image 
+                                    key={index}
+                                    alt='shotByPeter' 
+                                    src={`https:${pic.fields.file.url}`}
+                                    layout='fill'
+                                    objectFit='contain'
+                                    objectPosition='top'
+                                    placeholder="blur"
+                                    blurDataURL={'/imgPlaceholder.gif'}
+                                />
+                            )
+                        })} />
+                    </div>
+                </div> */}
             <div className={`flexCenter ${styles.rightCon}`}>
-            {/* <div className={styles.nextClick} onClick={() => setprojectPicId(projectPicId < images.length-1 ? projectPicId+1 : 0)}></div> */}
                 <Fade delay={0.2} duratio={0.8} scale={[0.8, 1]}>
                     <div className={`transit ${styles.bigImgWrap}`}>
                         <Image     
                         onClick={() => setprojectPicId(projectPicId < images.length-1 ? projectPicId+1 : 0)}  
-                        onMouseDownCapture={e => console.log('mousedown',e.screenX)}
-                        onMouseUpCapture={e => console.log('mouseup',e.screenX)}
-                        onMouseMove={(e) => setmouseXPos(e.screenX)}
                             alt='shotByPeter'             
                             src={`https:${projectPicId == -1 ? 
                                 thumbnail.fields.file.url 
@@ -159,7 +179,8 @@ export default function Project({ project, bgImages, dataFields }) {
                 </Fade>
             </div>
         </div>
-    )
+        <div className={styles.checkScreen} ref={checkScreenRef}/>
+    </>
 }
 
 

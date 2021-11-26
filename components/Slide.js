@@ -93,6 +93,9 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
     }
 
     const [isBoxTapped, setisBoxTapped] = useState(false)
+    useEffect(() => {
+        console.log('scroll is: ', isScroll)
+    }, [isScroll])
     const tapBox = (index) => {
         if(isScroll){
             scaleBoxNorm()
@@ -162,6 +165,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
             }}
             onTapStart={() => { setisBoxTapped(true); console.log('boxtap set true') }}
             onTap={() => { if(!isBoxTapped) tapBox(index) }}
+            onTapCancel={() => { setisBoxTapped(false) }}
         >
             <div style={{ zIndex: 2, height: '100%', width: '100%', position: 'absolute' }} />
             {val}
@@ -179,6 +183,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
                 transition={{ duration: duration }}
                 dragDirectionLock
                 drag='x'
+                whileDrag={() => { setisBoxTapped(true) }}
                 dragConstraints={{ 
                     left: isScroll ? -width * (boxList.length-1) : -width + -width * boxId, 
                     right: isScroll ? 0 : width + (-width * boxId),

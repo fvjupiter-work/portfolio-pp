@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, AnimateSharedLayout } from "framer-motion";
 
 export default function Example({ boxList, currentBoxId, boxIdHandler, height, width })  {
 
@@ -85,7 +85,10 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
                     : previousIsLast ? boxList.length-1
                     : moveNext ? boxId + 1 : boxId - 1
                 )
-            } else setBarPosition(barPosition)
+            } else { 
+                setBarPosition(barPosition)
+                setBoxId(boxId)
+            }
         }
     }
 
@@ -114,7 +117,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
             backgroundSize: 'cover',
             backgroundColor: 'white',
             touchAction: 'none',
-            ...backgroundWrapStyles
+            ...backgroundWrapStyles,
         },
         bar: { 
             height: height,
@@ -155,7 +158,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
             style={{...sty.box,
                 display: !isScroll 
                     && (index > boxId + 1 || index < boxId - 1) ? 'none' : 'block',
-                    zIndex: index == boxId && 1
+                zIndex: index == boxId && 1,
             }}
             onTapStart={() => { setisBoxTapped(isBoxTapped); console.log('boxtap set true') }}
             onTap={() => { if(!isBoxTapped) tapBox(index) }}
@@ -164,7 +167,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
             {val}
     </motion.div>
 
-    return <>
+    return <><AnimateSharedLayout>
         <div style={sty.backgroundWrap}
             animate={controlsWrap}
             transition={{ duration: duration }}
@@ -183,15 +186,15 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
                     bottom: 0 
                 }} 
                 dragElastic={dragElastic}
-                onTapStart={scaleBoxClick}
+                onTapStart={!isBoxTapped && scaleBoxClick}
                 onPanEnd={panEndBar}
-                onHoverStart={!isScroll && scaleBoxHover}
-                onHoverEnd={!isScroll && scaleBoxNorm}
+                onHoverStart={!isScroll && !isBoxTapped && scaleBoxHover}
+                onHoverEnd={!isScroll && !isBoxTapped && scaleBoxNorm}
             >
                 {!isScroll && endless && getBox({ val:'go to last', index: -1 })}
                 {boxList.map((val, index) => getBox({ val, index }))}
                 {!isScroll && endless && getBox({ val:'go to first', index: boxList.length })}
             </motion.section>
         </div>
-    </>
+        </AnimateSharedLayout></>
 }

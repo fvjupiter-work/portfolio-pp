@@ -15,10 +15,10 @@ import { INLINES } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 import Fade from '../../components/Fade'
+import Slide from '../../components/Slide'
 import ArrowRight from '../../components/svg/ArrowRight'
 import ArrowLeft from '../../components/svg/ArrowLeft'
 import styles from '../../styles/Project.module.scss'
-import Slide from '../../components/Slide'
 
 export default function Project({ project, bgImages, dataFields }) {
 

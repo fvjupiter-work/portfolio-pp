@@ -160,7 +160,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
                     && (index > boxId + 1 || index < boxId - 1) ? 'none' : 'block',
                 zIndex: index == boxId && 1,
             }}
-            onTapStart={() => { setisBoxTapped(isBoxTapped); console.log('boxtap set true') }}
+            onTapStart={() => { setisBoxTapped(true); console.log('boxtap set true') }}
             onTap={() => { if(!isBoxTapped) tapBox(index) }}
         >
             <div style={{ zIndex: 2, height: '100%', width: '100%', position: 'absolute' }} />

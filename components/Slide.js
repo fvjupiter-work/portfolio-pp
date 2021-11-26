@@ -59,32 +59,37 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
 
     //gesture-trigger functions
     const panEndBar = (event, info) => {
-        scaleBoxNorm()
-        const   offX = info.offset.x,
-                hitTreshold = offX > treshold || offX < -treshold,
-                moveNext = offX < 0,
-                isFirst = boxId == 0,
-                isLast = boxId == boxList.length-1,
-                nextIsFirst = isLast && endless && moveNext,
-                previousIsLast = isFirst && endless && !moveNext,
-                newBarPos = nextIsFirst ? 0
-                    : previousIsLast ? (boxList.length-1) * -width
-                    : moveNext ? barPosition - width 
-                    : barPosition + width,
-                forbidden = !endless && !isScroll 
-                    && (isFirst && !moveNext) 
-                    || (isLast && moveNext)
-
-        if(hitTreshold && !forbidden){
-            setBarPosition(newBarPos)
-            setBoxId(
-                nextIsFirst ? 0
-                : previousIsLast ? boxList.length-1
-                : moveNext ? boxId + 1 : boxId - 1
-            )
-        } else setBarPosition(barPosition)
+        setisBoxTapped(false)
+        console.log('boxtap set false')
+        if(!isScroll){
+            scaleBoxNorm()
+            const   offX = info.offset.x,
+                    hitTreshold = offX > treshold || offX < -treshold,
+                    moveNext = offX < 0,
+                    isFirst = boxId == 0,
+                    isLast = boxId == boxList.length-1,
+                    nextIsFirst = isLast && endless && moveNext,
+                    previousIsLast = isFirst && endless && !moveNext,
+                    newBarPos = nextIsFirst ? 0
+                        : previousIsLast ? (boxList.length-1) * -width
+                        : moveNext ? barPosition - width 
+                        : barPosition + width,
+                    forbidden = !endless && !isScroll 
+                        && (isFirst && !moveNext) 
+                        || (isLast && moveNext)
+    
+            if(hitTreshold && !forbidden){
+                setBarPosition(newBarPos)
+                setBoxId(
+                    nextIsFirst ? 0
+                    : previousIsLast ? boxList.length-1
+                    : moveNext ? boxId + 1 : boxId - 1
+                )
+            } else setBarPosition(barPosition)
+        }
     }
 
+    const [isBoxTapped, setisBoxTapped] = useState(false)
     const tapBox = (index) => {
         if(isScroll){
             scaleBoxNorm()
@@ -92,6 +97,8 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
             setBoxId(index)
         } else scaleBoxClick()
         setisScroll(!isScroll)
+        console.log('boxtap set false')
+        setisBoxTapped(false)
     }
 
     //styles
@@ -150,7 +157,8 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
                     && (index > boxId + 1 || index < boxId - 1) ? 'none' : 'block',
                     zIndex: index == boxId && 1
             }}
-            onTap={() => tapBox(index)}
+            onTapStart={() => { setisBoxTapped(isBoxTapped); console.log('boxtap set true') }}
+            onTap={() => { if(!isBoxTapped) tapBox(index) }}
         >
             <div style={{ zIndex: 2, height: '100%', width: '100%', position: 'absolute' }} />
             {val}
@@ -175,7 +183,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
                 }} 
                 dragElastic={dragElastic}
                 onTapStart={scaleBoxClick}
-                onPanEnd={!isScroll && panEndBar}
+                onPanEnd={panEndBar}
                 onHoverStart={!isScroll && scaleBoxHover}
                 onHoverEnd={!isScroll && scaleBoxNorm}
             >

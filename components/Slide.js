@@ -52,7 +52,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
     }
     const [isScroll, setisScroll] = useState(false)
     const [barPosition, setbarPosition] = useState(0)
-    // const [scale, setscale] = useState(1)
+    const [isBarMove, setisBarMove] = useState(false)
 
     const setBarPosition = newPos => { 
         controlsBar.start({ x: newPos })
@@ -66,13 +66,12 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
         borderRadius: borderRadiusClick,
         transition: { type: 'spring', stiffness: stiffnessClick,  mass: 0.1, }
     }) 
-    
 
     //gesture-trigger functions
     const panEndBar = (event, info) => {
-        setisBoxTapped(false)
-        console.log('boxtap set false')
-
+        setTimeout(() => {
+            setisBarMove(false)
+        }, 1);
             const   offX = info.offset.x,
                     hitTreshold = offX > treshold || offX < -treshold,
                     scrollTreshold = offX > width * 0.4 || offX < width * -0.4,
@@ -109,21 +108,11 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
             }
     }
 
-    const [isBoxTapped, setisBoxTapped] = useState(false)
-    useEffect(() => {
-        console.log('scroll is: ', isScroll)
-    }, [isScroll])
-
     useEffect(() => {
         scaleBoxNorm()
         setisScroll(false)
-        setisBoxTapped(false)
         setBarPosition(boxId * -width)
     }, [boxId])
-    const tapBox = (index) => { 
-        setBoxId(index)
-
-    }
 
     //styles
     const sty = {
@@ -173,7 +162,11 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
     //components (function which returns elements to not always render again...)
     const getBox = ({ val, index }) => 
         <div key={index}  >
-            <div style={{ zIndex: 2, height: '100%', width: '100%', position: 'absolute' }} onClick={() => { if(isScroll) setBoxId(index) }}/>
+            <div style={{ zIndex: 2, height: '100%', width: '100%', position: 'absolute' }} onClick={() => { if(isScroll && !isBarMove) {
+                setBoxId(index) 
+                scaleBoxNorm()
+                setBarPosition(index * -width)
+                }}}/>
             {/* {!isScroll && <><div style={{ position: 'relative', width: width/2, height: height, top: 0, left: 0, background: 'green', zIndex: 3}}/>
             <div style={{ position: 'absolute', width: width/2, height: height, top: 0, right: 0, background: 'red', zIndex: 3}}/></> } */}
         <motion.div 
@@ -218,10 +211,10 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
                     bottom: 0 
                 }} 
                 dragElastic={dragElastic}
-                onPanStart={!isBoxTapped && scaleBoxClick}
+                onPanStart={() => { setisBarMove(true); scaleBoxClick()}}
                 onPanEnd={panEndBar}
-                onHoverStart={!isScroll && !isBoxTapped && scaleBoxHover}
-                onHoverEnd={!isScroll && !isBoxTapped && scaleBoxNorm}
+                onHoverStart={!isScroll && scaleBoxHover}
+                onHoverEnd={!isScroll && scaleBoxNorm}
             >
                 {!isScroll && endless && getBox({ val:'go to last', index: -1 })}
                 {boxList.map((val, index) => getBox({ val, index }))}

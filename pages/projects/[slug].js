@@ -82,7 +82,7 @@ export default function Project({ project, bgImages, dataFields }) {
         setSmallImgBox_height()
         const observer = new ResizeObserver(entries => {
             if(contentConRef.current)setSmallImgBox_height()
-            console.log(entries[0].contentRect.width)
+            // console.log(entries[0].contentRect.width)
             setscreen(entries[0].contentRect.width)
         })
         observer.observe(screenRef.current)

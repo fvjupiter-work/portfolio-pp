@@ -22,7 +22,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
     // const boxList = ['','','','','','','']
     // const height = 546
     // const width = 344.5
-    const treshold = width / 8
+    const treshold = width / 5
     const scaleHover = 0.97
     const scaleClick = 0.93
     const duration = 0.35
@@ -72,10 +72,10 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
     const panEndBar = (event, info) => {
         setisBoxTapped(false)
         console.log('boxtap set false')
-
+        if(!isScroll){
+            scaleBoxNorm()
             const   offX = info.offset.x,
                     hitTreshold = offX > treshold || offX < -treshold,
-                    scrollTreshold = offX > width * 0.4 || offX < width * -0.4,
                     moveNext = offX < 0,
                     isFirst = boxId == 0,
                     isLast = boxId == boxList.length-1,
@@ -88,41 +88,34 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
                     forbidden = !endless && !isScroll 
                         && (isFirst && !moveNext) 
                         || (isLast && moveNext)
-
-            if(scrollTreshold && !forbidden){
-                scaleBoxClick()
-                setisScroll(true)
-            } else if(!isScroll && hitTreshold && !forbidden){
-                scaleBoxNorm()
+    
+            if(hitTreshold && !forbidden){
                 setBarPosition(newBarPos)
                 setBoxId(
                     nextIsFirst ? 0
                     : previousIsLast ? boxList.length-1
                     : moveNext ? boxId + 1 : boxId - 1
                 )
-                setisScroll(false)
-            } else if(!isScroll) { 
-                scaleBoxNorm()
+            } else { 
                 setBarPosition(barPosition)
                 setBoxId(boxId)
-                setisScroll(false)
             }
+        }
     }
 
     const [isBoxTapped, setisBoxTapped] = useState(false)
     useEffect(() => {
         console.log('scroll is: ', isScroll)
     }, [isScroll])
-
-    useEffect(() => {
-        scaleBoxNorm()
-        setisScroll(false)
+    const tapBox = (index) => {
+        if(isScroll){
+            scaleBoxNorm()
+            setBarPosition(index * -width)
+            setBoxId(index)
+        } else scaleBoxClick()
+        setisScroll(!isScroll)
+        console.log('boxtap set false')
         setisBoxTapped(false)
-        setBarPosition(boxId * -width)
-    }, [boxId])
-    const tapBox = (index) => { 
-        setBoxId(index)
-
     }
 
     //styles
@@ -172,11 +165,8 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
     
     //components (function which returns elements to not always render again...)
     const getBox = ({ val, index }) => 
-        <div key={index}  >
-            <div style={{ zIndex: 2, height: '100%', width: '100%', position: 'absolute' }} onClick={() => { if(isScroll) setBoxId(index) }}/>
-            {/* {!isScroll && <><div style={{ position: 'relative', width: width/2, height: height, top: 0, left: 0, background: 'green', zIndex: 3}}/>
-            <div style={{ position: 'absolute', width: width/2, height: height, top: 0, right: 0, background: 'red', zIndex: 3}}/></> } */}
         <motion.div 
+            key={index}
             animate={controlsBox} 
             transition={{ duration: duration }}
             style={{...sty.box,
@@ -184,19 +174,17 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
                     && (index > boxId + 1 || index < boxId - 1) ? 'none' : 'block',
                 zIndex: index == boxId && 1,
             }}
-            
-            // onTapStart={() => { 
-            //     // if(!isBoxTapped) {
-            //     setisBoxTapped(true); console.log('boxtap set true')
-            //     // } 
-            // }}
-            // onTap={() => { if(isScroll && !isBoxTapped) tapBox(index) }}
-            // onTapCancel={() => { setisBoxTapped(false) }}
+            onTapStart={() => { 
+                // if(!isBoxTapped) {
+                setisBoxTapped(true); console.log('boxtap set true')
+                // } 
+            }}
+            onTap={() => { if(!isBoxTapped) tapBox(index) }}
+            onTapCancel={() => { setisBoxTapped(false) }}
         >
-            {/* <div style={{ zIndex: 2, height: '100%', width: '100%', position: 'absolute' }} onClick={() => { if(isScroll) setBoxId(index) }}/> */}
+            <div style={{ zIndex: 2, height: '100%', width: '100%', position: 'absolute' }} />
             {val}
     </motion.div>
-    </div>
 
     return <><AnimateSharedLayout>
         <div style={sty.backgroundWrap}
@@ -210,7 +198,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
                 transition={{ duration: duration }}
                 dragDirectionLock
                 drag='x'
-                // whileDrag={() => { setisBoxTapped(true) }}
+                whileDrag={() => { setisBoxTapped(true) }}
                 dragConstraints={{ 
                     left: isScroll ? -width * (boxList.length-1) : -width + -width * boxId, 
                     right: isScroll ? 0 : width + (-width * boxId),
@@ -218,7 +206,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
                     bottom: 0 
                 }} 
                 dragElastic={dragElastic}
-                onPanStart={!isBoxTapped && scaleBoxClick}
+                onTapStart={!isBoxTapped && scaleBoxClick}
                 onPanEnd={panEndBar}
                 onHoverStart={!isScroll && !isBoxTapped && scaleBoxHover}
                 onHoverEnd={!isScroll && !isBoxTapped && scaleBoxNorm}

@@ -174,6 +174,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
                 style={sty.bar}
                 animate={controlsBar}
                 transition={{ duration: duration }}
+                dragDirectionLock
                 drag='x'
                 dragConstraints={{ 
                     left: isScroll ? -width * (boxList.length-1) : -width + -width * boxId, 

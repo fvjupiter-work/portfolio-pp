@@ -21,7 +21,7 @@
     overflow: hidden;
     align-items: flex-start;
     justify-content: center;
-    z-index: 10;
+    z-index: 0;
     // background: chocolate;
 }
 .leftCon{
@@ -97,12 +97,15 @@
 //     display: none;
 // }
 
-.checkScreen{
+.screen{
+    position: fixed;
+    bottom: 0;
+    left: 0;
     height: 0;
-    width: 4px;
+    width: 0px;
 }
 
-@media only screen and (max-width: 860px) {
+@media only screen and (max-width: 860px) { 
     .con{height: 710px; padding: 0 8px;}
     .rightCon{
       width: 437px;
@@ -116,9 +119,9 @@
       width: 437px;
       height: 683px;
     }
-    .checkScreen{
+    .screen{
         height: 0;
-        width: 3px;
+        width: 1px;
     }
   }
   
@@ -134,7 +137,7 @@
     //   .slideWrap{
     //     display: block;
     // }
-    .checkScreen{
+    .screen{
         height: 0;
         width: 2px;
     }

@@ -68,82 +68,86 @@ export default function Project({ project, bgImages, dataFields }) {
 
     const contentConRef = useRef()
     const leftConRef = useRef()
+    const screenRef = useRef()
+    const [screen, setscreen] = useState(0)
     const [smallImgBox_height, setsmallImgBox_height] = useState(0)
-    const checkScreenRef = useRef()
-    const [screenFormat, setscreenFormat] = useState(4)
-    useEffect(() => {
-        setsmallImgBox_height(
-            leftConRef.current.clientHeight 
-            - contentConRef.current.clientHeight 
-            - 10
-        )
-    }, [])
+
+    const setSmallImgBox_height = () => setsmallImgBox_height(
+        leftConRef.current.clientHeight 
+        - contentConRef.current.clientHeight 
+        - 10
+    )
 
     useEffect(() => {
-        setscreenFormat(checkScreenRef.current.clientWidth)
-        console.log('screenFormat: ', checkScreenRef.current.clientWidth)
-        const myObserver = new ResizeObserver(entries => {
-            entries.forEach(entry => {
-              if(typeof entry == 'object') console.log('width', entry.contentRect.width);
-            })
-          })
-        myObserver.observe(checkScreenRef.current)
+        setSmallImgBox_height()
+        const observer = new ResizeObserver(entries => {
+            if(contentConRef.current)setSmallImgBox_height()
+            console.log(entries[0].contentRect.width)
+            setscreen(entries[0].contentRect.width)
+        })
+        observer.observe(screenRef.current)
+        return () => screenRef.current && observer.unobserve(screenRef.current)
     }, [])
 
     return <>
         <div className={`${styles.con}`}>
-                <div className={`${styles.leftCon}`} ref={leftConRef}>
-                    <div style={{ height: smallImgBox_height }} 
-                        className={`${styles.smallImgCon}`}
+            <div className={`${styles.leftCon}`} ref={leftConRef}>
+                <div style={{ height: smallImgBox_height }} 
+                    className={`${styles.smallImgCon}`}
+                    >
+                    {images.map((pic, index) => <Fade 
+                        key={index} 
+                        delay={0.2 * index} 
+                        duratio={0.8} 
+                        scale={[0.8, 1]}
                         >
-                        {images.map((pic, index) => <Fade 
-                            key={index} 
-                            delay={0.2 * index} 
-                            duratio={0.8} 
-                            scale={[0.8, 1]}
+                        <div style={{ 
+                                borderColor: index == projectPicId ? accentColor : 'black', 
+                                opacity: isInfo ? 0 : 1, 
+                                transition: 'opacity 0.1s', 
+                                transitionDelay: isInfo ? '0s' : '0.3s'
+                            }} 
+                            onClick={() => setprojectPicId(index)}
+                            className={`${styles.smallImgBox}`}
                             >
-                            <div style={{ 
-                                    borderColor: index == projectPicId ? accentColor : 'black', 
-                                    opacity: isInfo ? 0 : 1, 
-                                    transition: 'opacity 0.1s', 
-                                    transitionDelay: isInfo ? '0s' : '0.3s'
-                                }} 
-                                onClick={() => setprojectPicId(index)}
-                                className={`${styles.smallImgBox}`}
-                                >
-                                <div className={`${styles.smallImgWrap}`}>
-                                    <div 
-                                        className={`scaleHover transit ${styles.smallImgWrap}`}
-                                        >
-                                        <Image 
-                                            alt='shotByPeter' 
-                                            src={`https:${pic.fields.file.url}`}
-                                            layout='fill'
-                                            objectFit='cover'
-                                            objectPosition='50% 50%'
-                                            placeholder="blur"
-                                            blurDataURL={'/imgPlaceholder.gif'}
-                                        />
-                                    </div>
+                            <div className={`${styles.smallImgWrap}`}>
+                                <div 
+                                    className={`scaleHover transit ${styles.smallImgWrap}`}
+                                    >
+                                    <Image 
+                                        alt='shotByPeter' 
+                                        src={`https:${pic.fields.file.url}`}
+                                        layout='fill'
+                                        objectFit='cover'
+                                        objectPosition='50% 50%'
+                                        placeholder="blur"
+                                        blurDataURL={'/imgPlaceholder.gif'}
+                                    />
                                 </div>
-                                <div className={`font ${styles.num}`}>{index+1}</div>
                             </div>
-                        </Fade>)}
+                            <div className={`font ${styles.num}`}>{index+1}</div>
+                        </div>
+                    </Fade>)}
+                </div>
+                <div className={`${styles.contentCon}`} ref={contentConRef}>
+                    <div className={`flexCenter ${styles.buttonBox}`}>
+                        {getArrow(true)}
+                        {getArrow()}
                     </div>
-                    <div className={`${styles.contentCon}`} ref={contentConRef}>
-                        <div className={`flexCenter ${styles.buttonBox}`}>
-                            {getArrow(true)}
-                            {getArrow()}
-                        </div>
-                        <div className={`font ${styles.title}`}>{title}</div>
-                        <div className={`font ${styles.content}`}>
-                            {documentToReactComponents(description, richText_Options)}
-                        </div>
+                    <div className={`font ${styles.title}`}>{title}</div>
+                    <div className={`font ${styles.content}`}>
+                        {documentToReactComponents(description, richText_Options)}
                     </div>
                 </div>
-                {/* <div className={`flexCenter ${styles.rightCon}`}>
-                    <div className={styles.slideWrap}>
-                        <Slide boxList={images.map((pic, index) => { 
+            </div>
+            <div className={`flexCenter ${styles.rightCon}`}>
+                {screen > 0 ?
+                    <Slide 
+                        currentBoxId={projectPicId}
+                        boxIdHandler={setprojectPicId} 
+                        height={screen == 1 ? 683-8 : screen == 2 ? 556-8 : 1}
+                        width={screen == 1 ? 437 : screen == 2 ? 344.5 : 1}
+                        boxList={images.map((pic, index) => { 
                             return (
                                 <Image 
                                     key={index}
@@ -156,30 +160,29 @@ export default function Project({ project, bgImages, dataFields }) {
                                     blurDataURL={'/imgPlaceholder.gif'}
                                 />
                             )
-                        })} />
-                    </div>
-                </div> */}
-            <div className={`flexCenter ${styles.rightCon}`}>
-                <Fade delay={0.2} duratio={0.8} scale={[0.8, 1]}>
-                    <div className={`transit ${styles.bigImgWrap}`}>
-                        <Image     
-                        onClick={() => setprojectPicId(projectPicId < images.length-1 ? projectPicId+1 : 0)}  
-                            alt='shotByPeter'             
-                            src={`https:${projectPicId == -1 ? 
-                                thumbnail.fields.file.url 
-                                : images[projectPicId].fields.file.url}`
-                            }
-                            layout='fill'
-                            objectFit='contain'
-                            objectPosition='top'
-                            placeholder="blur"
-                            blurDataURL={'/imgPlaceholder.gif'}
-                        />
-                    </div>
-                </Fade>
+                        })}
+                    />
+                :   <Fade delay={0.2} duratio={0.8} scale={[0.8, 1]}>
+                        <div className={`transit ${styles.bigImgWrap}`}>
+                            <Image     
+                            // onClick={() => setprojectPicId(projectPicId < images.length-1 ? projectPicId+1 : 0)}  
+                                alt='shotByPeter'             
+                                src={`https:${projectPicId == -1 ? 
+                                    thumbnail.fields.file.url 
+                                    : images[projectPicId].fields.file.url}`
+                                }
+                                layout='fill'
+                                objectFit='contain'
+                                objectPosition='top'
+                                placeholder="blur"
+                                blurDataURL={'/imgPlaceholder.gif'}
+                            />
+                        </div>
+                    </Fade>
+                }
             </div>
         </div>
-        <div className={styles.checkScreen} ref={checkScreenRef}/>
+        <div className={styles.screen} ref={screenRef}/>
     </>
 }
 

@@ -1,16 +1,16 @@
 import * as React from "react";
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 
-export default function Example({ boxList })  {
+export default function Example({ boxList, currentBoxId, boxIdHandler, height, width })  {
 
     //delete page before use
 
     //props
     //////////// touch-action //////// like on framer-drag described
     // const boxList = ['','','','','','','']
-    const height = 546
-    const width = 344.5
+    // const height = 546
+    // const width = 344.5
     const treshold = width / 3
     const scaleHover = 0.97
     const scaleClick = 0.93
@@ -31,6 +31,14 @@ export default function Example({ boxList })  {
 
     //states
     const [boxId, setboxId] = useState(0)
+    useEffect(() => {
+        setBarPosition(currentBoxId * -width)
+        setboxId(currentBoxId)
+    }, [])
+    const setBoxId = newId => {
+        setboxId(newId)
+        boxIdHandler(newId)
+    }
     const [isScroll, setisScroll] = useState(false)
     const [barPosition, setbarPosition] = useState(0)
     // const [scale, setscale] = useState(1)
@@ -69,7 +77,7 @@ export default function Example({ boxList })  {
 
         if(hitTreshold && !forbidden){
             setBarPosition(newBarPos)
-            setboxId(
+            setBoxId(
                 nextIsFirst ? 0
                 : previousIsLast ? boxList.length-1
                 : moveNext ? boxId + 1 : boxId - 1
@@ -81,7 +89,7 @@ export default function Example({ boxList })  {
         if(isScroll){
             scaleBoxNorm()
             setBarPosition(index * -width)
-            setboxId(index)
+            setBoxId(index)
         } else scaleBoxClick()
         setisScroll(!isScroll)
     }
@@ -144,7 +152,7 @@ export default function Example({ boxList })  {
             }}
             onTap={() => tapBox(index)}
         >
-            <div style={{ zIndex: 10, height: '100%', width: '100%', background: 'transparent', position: 'absolute' }} />
+            <div style={{ zIndex: 2, height: '100%', width: '100%', position: 'absolute' }} />
             {val}
     </motion.div>
 

@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { motion, useAnimation, AnimateSharedLayout } from "framer-motion";
 
-export default function Example({ boxList, currentBoxId, boxIdHandler, height, width })  {
+export default function Example({ boxList, currentBoxId, boxIdHandler, height, width, borderRadius })  {
 
 
 
@@ -25,11 +25,12 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
     const treshold = width / 8
     const scaleHover = 0.97
     const scaleClick = 0.93
+    const isScaleOnSwipe = true
     const duration = 0.35
     const stiffnessClick = 175
     const dragElastic = 0.175
     const borderRadiusNorm = 0 // 0 if backdrop!
-    const borderRadiusClick = 15
+    const borderRadiusClick = borderRadius
     const backgroundWrapStyles = {} // will be passed to styles
     const barStyles = {}
     const boxStyles = {}
@@ -210,7 +211,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
                 }} 
                 dragElastic={dragElastic}
                 onPanStart={() => { 
-                    setisBarMove(true); scaleBoxClick()
+                    setisBarMove(true); if(isScaleOnSwipe) scaleBoxClick()
                 }}
                 onPanEnd={panEndBar}
                 onHoverStart={!isScroll && scaleBoxHover}

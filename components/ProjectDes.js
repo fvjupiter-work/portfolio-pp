@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRecoilValue } from 'recoil'
-import { projectPicIdState, isProjectInfoState, isInfoState, projectInfoState } from '../lib/state'
+import { projectPicIdState, isProjectInfoState, isInfoState, projectInfoState, screenState } from '../lib/state'
 import getStyles from '../lib/getStyles'
 import { INLINES } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
@@ -11,6 +11,7 @@ export default function ProjectDes({ show }) {
     const isProjectInfo = useRecoilValue(isProjectInfoState)
     const projectPicId = useRecoilValue(projectPicIdState)
     const isInfo = useRecoilValue(isInfoState)
+    const screen = useRecoilValue(screenState)
     const sty = {
         des: {
             opacity: isProjectInfo ? 1 : 0,
@@ -28,7 +29,11 @@ export default function ProjectDes({ show }) {
         },
         // renderText: text => text.replace('!', '?'),
     };
-    return <div style={{ height: !isProjectInfo && 36 }} className={`${styles.projectDesCon} ${!isInfo ? styles.projectDesConNoInfo : ''}`}>
+    return <div style={{ 
+                    height: !isProjectInfo && (screen < 3 ? 36 : 28.8),
+                    marginTop: screen == 3 && (isProjectInfo ? 1 : 3)
+                }} 
+                className={`${styles.projectDesCon} ${!isInfo ? styles.projectDesConNoInfo : ''}`}>
         <div style={{ zIndex: isInfo ? -5 : 0 }} 
             className={`${styles.smallTitleBox} ${show ? styles.smallTitleBoxProject : ''}`}
             >

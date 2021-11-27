@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { isInfoState, chosenProjectSlugState, projectDataState, isProjectInfoState, dataState, backgroundImgState, accentColorState} from '../lib/state'
+import React, { useState, useEffect, useRef } from 'react'
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
+import { isInfoState, chosenProjectSlugState, projectDataState, isProjectInfoState, dataState, backgroundImgState, accentColorState, screenState} from '../lib/state'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import InfoBox from './InfoBox'
@@ -55,6 +55,16 @@ export default function Layout({ children }) {
         setprojectData(projectDataCopy)
     }
 
+    const screenRef = useRef()
+    const [screen, setscreen] = useRecoilState(screenState)
+    useEffect(() => {
+        const observer = new ResizeObserver(entries => {
+            setscreen(entries[0].contentRect.width)
+        })
+        observer.observe(screenRef.current)
+        return () => screenRef.current && observer.unobserve(screenRef.current)
+    }, [])
+
     // components
     const toggleButt1 = () => {
         let goHome = isProjectRoute
@@ -81,7 +91,7 @@ export default function Layout({ children }) {
             <meta name="Portfolio" content="Projects of Peter Plügler" />
             <link rel="icon" type="image/png" href="/peterFavicon.png" />
         </Head>
-
+        <div className={styles.screen} ref={screenRef}/>
         <div className={styles.wrap}>
             <div 
                 className={`

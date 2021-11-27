@@ -4,7 +4,8 @@ import {
     accentColorState, 
     chosenProjectSlugState, 
     projectDataState, 
-    projectPicIdState } from '../lib/state'
+    projectPicIdState, 
+    screenState} from '../lib/state'
 import Image from 'next/image'
 import Fade from './Fade'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
@@ -17,9 +18,11 @@ export default function Captcha({ dataFields }) {
     const projectData = useRecoilValue(projectDataState)
     const setprojectPicId = useSetRecoilState(projectPicIdState)
     const accentColor = useRecoilValue(accentColorState)
+    const screen = useRecoilValue(screenState)
+
     useEffect(() => setprojectPicId(0), [])
 
-    return <div style={{display: 'block', color: 'white'}}>
+    return <div style={{display: 'block', color: dataFields.isTextColorIntroWhite ? 'white' : 'black'}}>
         <div style={{ background: accentColor }} className={`${styles.introBox}`}>
             <div className={`${styles.introLeftBox}`}>
                 <div className={`font ${styles.introTitle}`}>{dataFields.name}</div>
@@ -31,8 +34,8 @@ export default function Captcha({ dataFields }) {
                 <Image 
                     alt='Peter' 
                     src={`https:${dataFields.profileImage.fields.file.url}`}
-                    height={97}
-                    width={70}
+                    height={screen == 3 ? 78 : 97}
+                    width={screen == 3 ? 56 : 70}
                 />
             </div>
         </div>
@@ -47,7 +50,7 @@ export default function Captcha({ dataFields }) {
                 <Fade key={index}  delay={0.05 * index} duratio={0.8} scale={[0.8, 1]}>
                     <div 
                         key={index} 
-                        style={{ padding: isClicked ? 9 : 0 }} 
+                        style={{ padding: isClicked ? (screen < 3 ? 9 : 6.2) : 0 }} 
                         className={`${styles.picBox} transit`}
                         onMouseEnter={() => { sethoverId(slug) }} 
                         onMouseLeave={() => { sethoverId(-1) }}

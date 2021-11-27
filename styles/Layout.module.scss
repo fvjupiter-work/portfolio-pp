@@ -140,6 +140,13 @@
 .buttonContact{
     width: 79px;
 }
+.screen{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 0;
+    width: 0px;
+}
 
 // small Desktop
 @media only screen and (max-width: 860px) {
@@ -152,6 +159,7 @@
     .controlsInnerBox{ width: 435px; }
     .textButtProject{ display: block; padding-top: 2px;}
     .infoButtProject{ padding-top: 0; }
+    .screen{ width: 1px; }
 }
 
 // mobile
@@ -183,5 +191,38 @@
     .buttonContact{ width: 70px; }
     .textButtProject{ display: block; padding-top: 4px;}
     .infoButtProject{ padding-top: 1px; }
+
+    .screen{ width: 2px; }
+}
+@media only screen and (max-width: 400px) {
+    .con{ height: 521.6px; width: 288.8px; }
+    .childrenBox{ padding: 6px 0; height: 479px; }
+    .childrenBoxSmallScreen{ height: 28.8px; }
+
+    .infoBox{ bottom: 40.8px;}
+    .infoBoxVar2{ height: 479.2px; } //
+    .infoBoxVar3{ height: 28.8px; } //
+
+    .infoSVG{ height: 24px; width: 24px;}
+    .shuffleSVG{ width: 23.2px; height: 26.4px; }
+    .textSVG{ height: 38.8px; width: 38.8px; margin-top: 0px; }
+    .shuffleWrap{ padding-bottom: 3.2px; margin-bottom: -3.2px; }
+    .infoButtProject{ padding-top: 4px; }
+    .infoButt{ padding-top: 4px; }
+
+    .controlsCon{ height: 40.8px; width: 287.2px; }
+    .controlsInnerBox{ width: 100%; }
+    .controlsLeft{ width: 60px; }
+    .controlsLeftProject{ width: 68px; }
+    .textButtProject{ display: block; padding-top: 1.6px;}
+    .infoButtProject{ padding-top: 0; }
+
+    .buttonBox{ width: 124.216px; }
+    .button{ height: 28.528px; width: 62.4px;}
+    .buttonContact{ width: 56px; }
+    .textButtProject{ display: block; padding-top: 3.2px;}
+    .infoButtProject{ padding-top: 0.8px; }
+
+    .screen{ width: 3px; }
 }
 

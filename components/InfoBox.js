@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
-import { dataState, isInfoState, isProjectInfoState } from '../lib/state'
+import { dataState, isInfoState, isProjectInfoState, screenState } from '../lib/state'
 import Image from 'next/image'
 import { INLINES } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-// import Bracket from './svg/Bracket'
+import Bracket from './svg/Bracket'
 import ArrowRight from './svg/ArrowRight'
 import styles from '../styles/InfoBox.module.scss'
 
@@ -12,6 +12,7 @@ export default function InfoBox({ isProjectRoute }) {
     const data = useRecoilValue(dataState)
     const isInfo = useRecoilValue(isInfoState)
     const isProjectInfo = useRecoilValue(isProjectInfoState)
+    const screen = useRecoilValue(screenState)
     const [isGeneral, setisGeneral] = useState(false)
     const [isCV, setisCV] = useState(false)
     const [isAbout, setisAbout] = useState(false)
@@ -34,10 +35,14 @@ export default function InfoBox({ isProjectRoute }) {
     }, [isInfo])
     
     const BracketCon = ({ turn }) => <div 
-        style={{ transform: turn ? `rotate(180deg)` : `rotate(0deg)` }}
+        style={{ 
+            transform: !turn ? `rotate(180deg)` : `rotate(0deg)`,
+            marginLeft: !turn && (screen < 2 ? 4 : screen < 3 ? 3 : 2.5),
+            width: !turn && screen == 3 && 294
+        }}
         className={`flexCenter ${styles.bracketCon} ${!isGeneral && styles.bracketConMargin}`}>
-            {/* <Bracket styles={styles}/> */}
-        <Image src='/bracketTrans.png' layout='fill' objectFit='contain' />
+            <Bracket styles={styles}/> 
+        {/* <Image src='/bracketTrans.png' layout='fill' objectFit='contain' /> */}
     </div>
 
     const getBlock = ({ id, show, title, children }) => {
@@ -67,7 +72,7 @@ export default function InfoBox({ isProjectRoute }) {
                             marginTop: isGeneral && id == 0 ? 15 : 0,
                             marginBottom: !isGeneral || id == 2 ? 0 : 18, 
                             paddingLeft: !isGeneral ? 3 : 0,
-                            height: !isGeneral ? 17 : 'fit-content', // no text crumble
+                            height: !isGeneral ? (screen == 3 ? 12 : 17) : 'fit-content', // no text crumble
                             overflow: 'hidden',
                         }} 
                         className={`
@@ -92,7 +97,7 @@ export default function InfoBox({ isProjectRoute }) {
             [INLINES.HYPERLINK]: (node, children) => <a target='_blank' rel="noreferrer" href={node.data.uri}>{children}</a>,
         },
         // renderText: text => text.replace('!', '?'),
-    };
+    }
     return (
         <div style={{ opacity: isInfo ? 1 : 0, display: !isInfo && !isProjectInfo && 'none' }} 
             className={`${styles.pergament} ${isProjectRoute ? styles.pergamentProject : ''}`}>

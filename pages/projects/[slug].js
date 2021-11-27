@@ -6,7 +6,8 @@ import {
     backgroundImgState, 
     accentColorState, 
     projectInfoState, 
-    isInfoState
+    isInfoState,
+    screenState
 } from '../../lib/state'
 import Image from 'next/image'
 
@@ -68,8 +69,6 @@ export default function Project({ project, bgImages, dataFields }) {
 
     const contentConRef = useRef()
     const leftConRef = useRef()
-    const screenRef = useRef()
-    const [screen, setscreen] = useState(0)
     const [smallImgBox_height, setsmallImgBox_height] = useState(0)
 
     const setSmallImgBox_height = () => setsmallImgBox_height(
@@ -77,17 +76,9 @@ export default function Project({ project, bgImages, dataFields }) {
         - contentConRef.current.clientHeight 
         - 10
     )
-
-    useEffect(() => {
-        setSmallImgBox_height()
-        const observer = new ResizeObserver(entries => {
-            if(contentConRef.current)setSmallImgBox_height()
-            // console.log(entries[0].contentRect.width)
-            setscreen(entries[0].contentRect.width)
-        })
-        observer.observe(screenRef.current)
-        return () => screenRef.current && observer.unobserve(screenRef.current)
-    }, [])
+    const screen = useRecoilValue(screenState)
+    useEffect(() => setSmallImgBox_height(), [])
+    useEffect(() => setSmallImgBox_height(), [screen])
 
     return <>
         <div className={`${styles.con}`}>
@@ -145,8 +136,9 @@ export default function Project({ project, bgImages, dataFields }) {
                     <Slide 
                         currentBoxId={projectPicId}
                         boxIdHandler={setprojectPicId} 
-                        height={screen == 1 ? 683-8 : screen == 2 ? 556-8 : 1}
-                        width={screen == 1 ? 437 : screen == 2 ? 344.5 : 1}
+                        height={screen == 1 ? 683-8 : screen == 2 ? 556-8 : screen == 3 ? 444.8 : 1}
+                        width={screen == 1 ? 437 : screen == 2 ? 344.5 : screen == 3 ? 275.6 : 1}
+                        borderRadius={dataFields.borderRadiusOfImagesImageSlider}
                         boxList={images.map((pic, index) => { 
                             return (
                                 <Image 
@@ -182,7 +174,6 @@ export default function Project({ project, bgImages, dataFields }) {
                 }
             </div>
         </div>
-        <div className={styles.screen} ref={screenRef}/>
     </>
 }
 

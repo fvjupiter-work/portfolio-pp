@@ -53,3 +53,11 @@
     }
     .rightCon{ height: 557px; }
 }
+@media only screen and (max-width: 400px) {
+    .projectDesCon{
+        width: 287.2px;
+        height: 479.2px;
+        margin-left: 0px;
+    }
+    .rightCon{ height: 445.6px; }
+}

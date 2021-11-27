@@ -42,17 +42,25 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
 
     //states
     const [boxId, setboxId] = useState(0)
-    useEffect(() => {
-        setBarPosition(currentBoxId * -width)
-        setboxId(currentBoxId)
-    }, [])
     const setBoxId = newId => {
         setboxId(newId)
         boxIdHandler(newId)
     }
+
+    useEffect(() => {
+        setBarPosition(currentBoxId * -width)
+        setboxId(currentBoxId)
+    }, [])
+    
+    useEffect(() => {
+        scaleBoxNorm()
+        setisScroll(false)
+        setBarPosition(boxId * -width)
+    }, [boxId])
+
     const [isScroll, setisScroll] = useState(false)
-    const [barPosition, setbarPosition] = useState(0)
     const [isBarMove, setisBarMove] = useState(false)
+    const [barPosition, setbarPosition] = useState(0)
 
     const setBarPosition = newPos => { 
         controlsBar.start({ x: newPos })
@@ -69,50 +77,42 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
 
     //gesture-trigger functions
     const panEndBar = (event, info) => {
-        setTimeout(() => {
-            setisBarMove(false)
-        }, 1);
-            const   offX = info.offset.x,
-                    hitTreshold = offX > treshold || offX < -treshold,
-                    scrollTreshold = offX > width * 0.4 || offX < width * -0.4,
-                    moveNext = offX < 0,
-                    isFirst = boxId == 0,
-                    isLast = boxId == boxList.length-1,
-                    nextIsFirst = isLast && endless && moveNext,
-                    previousIsLast = isFirst && endless && !moveNext,
-                    newBarPos = nextIsFirst ? 0
-                        : previousIsLast ? (boxList.length-1) * -width
-                        : moveNext ? barPosition - width 
-                        : barPosition + width,
-                    forbidden = !endless && !isScroll 
-                        && (isFirst && !moveNext) 
-                        || (isLast && moveNext)
+        setTimeout(() => setisBarMove(false), 1)
+        const   offX = info.offset.x,
+                hitTreshold = offX > treshold || offX < -treshold,
+                scrollTreshold = offX > width * 0.4 || offX < width * -0.4,
+                moveNext = offX < 0,
+                isFirst = boxId == 0,
+                isLast = boxId == boxList.length-1,
+                nextIsFirst = isLast && endless && moveNext,
+                previousIsLast = isFirst && endless && !moveNext,
+                newBarPos = nextIsFirst ? 0
+                    : previousIsLast ? (boxList.length-1) * -width
+                    : moveNext ? barPosition - width 
+                    : barPosition + width,
+                forbidden = !endless && !isScroll 
+                    && (isFirst && !moveNext) 
+                    || (isLast && moveNext)
 
-            if(scrollTreshold && !forbidden){
-                scaleBoxClick()
-                setisScroll(true)
-            } else if(!isScroll && hitTreshold && !forbidden){
-                scaleBoxNorm()
-                setBarPosition(newBarPos)
-                setBoxId(
-                    nextIsFirst ? 0
-                    : previousIsLast ? boxList.length-1
-                    : moveNext ? boxId + 1 : boxId - 1
-                )
-                setisScroll(false)
-            } else if(!isScroll) { 
-                scaleBoxNorm()
-                setBarPosition(barPosition)
-                setBoxId(boxId)
-                setisScroll(false)
-            }
+        if(scrollTreshold && !forbidden){
+            scaleBoxClick()
+            setisScroll(true)
+        } else if(!isScroll && hitTreshold && !forbidden){
+            scaleBoxNorm()
+            setBarPosition(newBarPos)
+            setBoxId(
+                nextIsFirst ? 0
+                : previousIsLast ? boxList.length-1
+                : moveNext ? boxId + 1 : boxId - 1
+            )
+            setisScroll(false)
+        } else if(!isScroll) { 
+            scaleBoxNorm()
+            setBarPosition(barPosition)
+            setBoxId(boxId)
+            setisScroll(false)
+        }
     }
-
-    useEffect(() => {
-        scaleBoxNorm()
-        setisScroll(false)
-        setBarPosition(boxId * -width)
-    }, [boxId])
 
     //styles
     const sty = {
@@ -161,49 +161,38 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
     
     //components (function which returns elements to not always render again...)
     const getBox = ({ val, index }) => 
-        <div key={index}  >
-            <div style={{ zIndex: 2, height: '100%', width: '100%', position: 'absolute' }} onClick={() => { if(isScroll && !isBarMove) {
+        <div key={index}>
+            <div 
+                style={{ zIndex: 2, height: '100%', width: '100%', position: 'absolute' }} 
+                onClick={() => { if(isScroll && !isBarMove) {
                 setBoxId(index) 
                 scaleBoxNorm()
                 setBarPosition(index * -width)
-                }}}/>
-            {/* {!isScroll && <><div style={{ position: 'relative', width: width/2, height: height, top: 0, left: 0, background: 'green', zIndex: 3}}/>
-            <div style={{ position: 'absolute', width: width/2, height: height, top: 0, right: 0, background: 'red', zIndex: 3}}/></> } */}
-        <motion.div 
-            animate={controlsBox} 
-            transition={{ duration: duration }}
-            style={{...sty.box,
-                display: !isScroll 
-                    && (index > boxId + 1 || index < boxId - 1) ? 'none' : 'block',
-                zIndex: index == boxId && 1,
-            }}
-            
-            // onTapStart={() => { 
-            //     // if(!isBoxTapped) {
-            //     setisBoxTapped(true); console.log('boxtap set true')
-            //     // } 
-            // }}
-            // onTap={() => { if(isScroll && !isBoxTapped) tapBox(index) }}
-            // onTapCancel={() => { setisBoxTapped(false) }}
-        >
-            {/* <div style={{ zIndex: 2, height: '100%', width: '100%', position: 'absolute' }} onClick={() => { if(isScroll) setBoxId(index) }}/> */}
-            {val}
-    </motion.div>
-    </div>
+            }}}/>
+            <motion.div 
+                animate={controlsBox} 
+                transition={{ duration: duration }}
+                style={{...sty.box,
+                    display: !isScroll 
+                        && (index > boxId + 1 || index < boxId - 1) ? 'none' : 'block',
+                    zIndex: index == boxId && 1,
+                }}
+                >{val}
+            </motion.div>
+        </div>
 
-    return <><AnimateSharedLayout>
-        <div style={sty.backgroundWrap}
+    return <>
+        <div 
+            style={sty.backgroundWrap}
             animate={controlsWrap}
             transition={{ duration: duration }}
-        >
-            {/* <div style={{ background: 'white', height: height+50, width: width}}></div> */}
+            >
             <motion.section 
                 style={sty.bar}
                 animate={controlsBar}
                 transition={{ duration: duration }}
                 dragDirectionLock
                 drag='x'
-                // whileDrag={() => { setisBoxTapped(true) }}
                 dragConstraints={{ 
                     left: isScroll ? -width * (boxList.length-1) : -width + -width * boxId, 
                     right: isScroll ? 0 : width + (-width * boxId),
@@ -215,11 +204,11 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
                 onPanEnd={panEndBar}
                 onHoverStart={!isScroll && scaleBoxHover}
                 onHoverEnd={!isScroll && scaleBoxNorm}
-            >
+                >
                 {!isScroll && endless && getBox({ val:'go to last', index: -1 })}
                 {boxList.map((val, index) => getBox({ val, index }))}
                 {!isScroll && endless && getBox({ val:'go to first', index: boxList.length })}
             </motion.section>
         </div>
-        </AnimateSharedLayout></>
+    </>
 }

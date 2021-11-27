@@ -126,7 +126,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundColor: 'white',
-            // touchAction: 'none',
+            touchAction: 'none',
             ...backgroundWrapStyles,
         },
         bar: { 
@@ -142,7 +142,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
             display: 'flex',
             alignItems: 'center',
             // background: 'orange',
-            // touchAction: 'none',
+            touchAction: 'none',
             ...barStyles
         },
         box: {
@@ -154,7 +154,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
             backgroundSize: 'contain',
             backgroundColor: 'white',
             boxShadow: '0 62.5px 125px -25px rgba(50, 50, 73, 0.5), 0 37.5px 75px -37.5px rgba(0, 0, 0, 0.6)',
-            // touchAction: 'none',
+            touchAction: 'none',
             ...boxStyles
         }
     }

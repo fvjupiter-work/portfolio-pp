@@ -4,7 +4,7 @@ import { projectPicIdState, isProjectInfoState, isInfoState, projectInfoState, s
 import getStyles from '../lib/getStyles'
 import { INLINES } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import styles from '../styles/ProjectDes.module.scss'
+import styles from '../styles/ProjectDes.module.css'
 
 export default function ProjectDes({ show }) {
     const { title, description, images } = useRecoilValue(projectInfoState)

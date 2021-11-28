@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { dataState, isInfoState, isProjectInfoState, screenState } from '../lib/state'
-import Image from 'next/image'
 import { INLINES } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import Bracket from './svg/Bracket'
 import ArrowRight from './svg/ArrowRight'
-import styles from '../styles/InfoBox.module.scss'
+import styles from '../styles/InfoBox.module.css'
 
 export default function InfoBox({ isProjectRoute }) {
     const data = useRecoilValue(dataState)

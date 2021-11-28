@@ -1,6 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
-import { isInfoState, chosenProjectSlugState, projectDataState, isProjectInfoState, dataState, backgroundImgState, accentColorState, screenState} from '../lib/state'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { 
+    isInfoState, 
+    chosenProjectSlugState, 
+    projectDataState, 
+    isProjectInfoState, 
+    dataState, 
+    backgroundImgState, 
+    accentColorState, 
+    screenState
+} from '../lib/state'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import InfoBox from './InfoBox'
@@ -9,7 +18,7 @@ import Shuffle from './svg/Shuffle'
 import Info from './svg/Info'
 import TextButton from './svg/TextButton'
 import Image from 'next/image'
-import styles from '../styles/Layout.module.scss'
+import styles from '../styles/Layout.module.css'
 
 export default function Layout({ children }) {
     const router = useRouter()
@@ -187,7 +196,3 @@ export default function Layout({ children }) {
         </div>
     </div>
 }
-
-
-
-

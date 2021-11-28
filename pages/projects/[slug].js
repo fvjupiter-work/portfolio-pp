@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useLayoutEffect } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { 
     projectPicIdState, 
@@ -19,7 +19,7 @@ import Fade from '../../components/Fade'
 import Slide from '../../components/Slide'
 import ArrowRight from '../../components/svg/ArrowRight'
 import ArrowLeft from '../../components/svg/ArrowLeft'
-import styles from '../../styles/Project.module.scss'
+import styles from '../../styles/Project.module.css'
 
 export default function Project({ project, bgImages, dataFields }) {
 
@@ -156,8 +156,7 @@ export default function Project({ project, bgImages, dataFields }) {
                     />
                 :   <Fade delay={0.2} duratio={0.8} scale={[0.8, 1]}>
                         <div className={`transit ${styles.bigImgWrap}`}>
-                            <Image     
-                            // onClick={() => setprojectPicId(projectPicId < images.length-1 ? projectPicId+1 : 0)}  
+                            <Image
                                 alt='shotByPeter'             
                                 src={`https:${projectPicId == -1 ? 
                                     thumbnail.fields.file.url 

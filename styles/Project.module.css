@@ -1,10 +1,3 @@
-// .nextClick{
-//     height: 100%;
-//     width: 100%;
-//     z-index: 100;
-//     background-color: yellowgreen;
-// }
-
 .con{
     position: relative;
     display: flex;
@@ -22,13 +15,11 @@
     align-items: flex-start;
     justify-content: center;
     z-index: 0;
-    // background: chocolate;
 }
 .leftCon{
     width: 198px;
     padding-right: 9px;
     display: block;
-    // background: cornsilk;
 }
 .smallImgCon {
     display: flex;
@@ -36,11 +27,8 @@
     align-items: flex-start;
     flex-wrap: wrap;
     width: 100%;
-    // background: chartreuse;
     align-content: flex-start;
     overflow: scroll;
-    // height: 395px;//half: 439px;
-    // border-bottom: 1px solid rgb(160,160,160);
 }
 .smallImgBox{
     border: 1px solid black;
@@ -90,14 +78,6 @@
     font-weight: 700;
     margin-bottom: 20px;
 }
-// .content{
-
-// }
-// .slideWrap{
-//     display: none;
-// }
-
-
 
 @media only screen and (max-width: 860px) { 
     .con{height: 710px; padding: 0 8px;}
@@ -115,14 +95,13 @@
     }
   }
   
-// mobile
+ /* mobile */
 @media only screen and (max-width: 485px) {
     .con{ height: 556px; padding: 0 7px; }
     .rightCon{ height: 556px; width: 344.5px; }
     .bigImgWrap{
         width: 344.5px;
         height: 556px;
-        // border-bottom: 1px solid green;
       }
 }
 @media only screen and (max-width: 400px) {
@@ -131,6 +110,5 @@
     .bigImgWrap{
         width: 275.6px;
         height: 444.8px;
-        // border-bottom: 1px solid green;
       }
 }

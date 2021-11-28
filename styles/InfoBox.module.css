@@ -11,19 +11,14 @@
 }
 .bracketCon{
     position: relative;
-    // height: 45px;
-    // width: 422px; 
-    // left: 15px;
     height: 37px;
     width: 472px; 
     top: 8px;
     left: -12px;
-    // background: goldenrod;
 }
 .bracket{
     width: 472px;
     height: 70px;
-    // background: rgb(32, 218, 94);
 }
 .arrowBox{
     position: relative;
@@ -42,12 +37,10 @@
     padding-left: 40px;
 }
 .contentBox{
-    // display: flex;
     align-items: center;
     margin: auto;
     padding-left: 1px;
     width: 394px;
-    // background: hotpink;
 }
 .contentBoxVar{
     position: absolute;
@@ -55,11 +48,7 @@
     top: 42px;
     left: 24px;
     width: 406px;
-    // background: pink;
 }
-// .des{
-//     margin-top: 8 !important;
-// }
 .aboutDiv > p:last-child{
     margin-bottom: 0;
 }
@@ -70,8 +59,7 @@
     margin-bottom: 0px;
 }
 
-
-// mobile
+/* mobile */
 @media only screen and (max-width: 485px) {
     .pergament{
         width: 100%;
@@ -91,18 +79,13 @@
         left: -5px;
     }
     .arrowBox{
-        position: relative;
         height: 40px;
         width: 40px;
     }
     .contentBox{
-        align-items: center;
-        margin: auto;
         width: 310px;
     }
     .contentBoxVar{
-        position: absolute;
-        z-index: 2;
         top: 31px;
         left: 21px;
         width: 321px;
@@ -137,7 +120,6 @@
         left: -4px;
     }
     .arrowBox{
-        position: relative;
         height: 32px;
         width: 32px;
     }
@@ -145,13 +127,9 @@
         width: 90px;
     }
     .contentBox{
-        align-items: center;
-        margin: auto;
         width: 248px;
     }
     .contentBoxVar{
-        position: absolute;
-        z-index: 2;
         top: 28px;
         left: 16.8px;
         width: 256.8px;

@@ -5,8 +5,6 @@
     right: 0;
     bottom: 0; 
     z-index: -11;
-    // width: 100%;
-    // height: 100vh;
     background-position: 50% 50%;
     overflow: scroll;
 }
@@ -14,14 +12,11 @@
     position: fixed;
     top: 0;
     left: 0;
-    // right: 0;
     width: 100%;
     height: 100%;
     overflow: scroll;
     display: flex;
     align-items: center;
-    // align-content: center;
-    // background: greenyellow;
     padding: 2px 0;
 }
 .con{
@@ -148,7 +143,7 @@
     width: 0px;
 }
 
-// small Desktop
+ /* small Desktop */
 @media only screen and (max-width: 860px) {
     .conHeightProject{ height: 786px; }
     .conWidthProject{ width: 455px; }
@@ -158,19 +153,19 @@
     .infoBoxVar3{ height: 36px; }
     .controlsInnerBox{ width: 435px; }
     .textButtProject{ display: block; padding-top: 2px;}
-    .infoButtProject{ padding-top: 0; }
+    .infoButtProject{ padding-top: 0.5px; }
     .screen{ width: 1px; }
 }
 
-// mobile
+ /* mobile */
 @media only screen and (max-width: 485px) {
     .con{ height: 652px; width: 361px; }
     .childrenBox{ padding: 7px 0; height: 599px; }
     .childrenBoxSmallScreen{ height: 36px; }
 
     .infoBox{ bottom: 51px;}
-    .infoBoxVar2{ height: 599px; } //
-    .infoBoxVar3{ height: 36px; } //
+    .infoBoxVar2{ height: 599px; } 
+    .infoBoxVar3{ height: 36px; } 
 
     .infoSVG{ height: 30px; width: 30px;}
     .shuffleSVG{ width: 29px; height: 33px; }
@@ -183,14 +178,12 @@
     .controlsInnerBox{ width: 100%; }
     .controlsLeft{ width: 75px; }
     .controlsLeftProject{ width: 85px; }
-    .textButtProject{ display: block; padding-top: 2px;}
-    .infoButtProject{ padding-top: 0; }
+    .textButtProject{ padding-top: 4px; }
+    .infoButtProject{ padding-top: 1px; }
 
     .buttonBox{ width: 155.27px; }
     .button{ height: 35.66px; width: 78px;}
     .buttonContact{ width: 70px; }
-    .textButtProject{ display: block; padding-top: 4px;}
-    .infoButtProject{ padding-top: 1px; }
 
     .screen{ width: 2px; }
 }
@@ -199,9 +192,9 @@
     .childrenBox{ padding: 6px 0; height: 479px; }
     .childrenBoxSmallScreen{ height: 28.8px; }
 
-    .infoBox{ bottom: 40.8px;}
-    .infoBoxVar2{ height: 479.2px; } //
-    .infoBoxVar3{ height: 28.8px; } //
+    .infoBox{ bottom: 40.8px; }
+    .infoBoxVar2{ height: 479.2px; } 
+    .infoBoxVar3{ height: 28.8px; } 
 
     .infoSVG{ height: 24px; width: 24px;}
     .shuffleSVG{ width: 23.2px; height: 26.4px; }
@@ -214,14 +207,12 @@
     .controlsInnerBox{ width: 100%; }
     .controlsLeft{ width: 60px; }
     .controlsLeftProject{ width: 68px; }
-    .textButtProject{ display: block; padding-top: 1.6px;}
-    .infoButtProject{ padding-top: 0; }
+    .textButtProject{ padding-top: 3.2px;}
+    .infoButtProject{ padding-top: 0.8px; }
 
     .buttonBox{ width: 124.216px; }
-    .button{ height: 28.528px; width: 62.4px;}
+    .button{ height: 28.528px; width: 62.4px; }
     .buttonContact{ width: 56px; }
-    .textButtProject{ display: block; padding-top: 3.2px;}
-    .infoButtProject{ padding-top: 0.8px; }
 
     .screen{ width: 3px; }
 }

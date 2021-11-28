@@ -1,27 +1,8 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { motion, useAnimation, AnimateSharedLayout } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 
 export default function Example({ boxList, currentBoxId, boxIdHandler, height, width, borderRadius })  {
-
-
-
-/// ONLY ONDRAG: SET SCROLL TRUE AFTER HIGH TRRESHOLD. AFTER LOW TRRESHOLD SWITCH TO NEXT.
-// ONTAP ONLY SETS BARPOS INDEX * -WIDTH AND BOXID
-
-
-
-
-
-
-
-    //delete page before use
-
-    //props
-    //////////// touch-action //////// like on framer-drag described
-    // const boxList = ['','','','','','','']
-    // const height = 546
-    // const width = 344.5
     const treshold = width / 8
     const scaleHover = 0.97
     const scaleClick = 0.93
@@ -81,7 +62,6 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
         setTimeout(() => setisBarMove(false), 1)
         const   offX = info.offset.x,
                 hitTreshold = offX > treshold || offX < -treshold,
-                scrollTreshold = offX > width * 0.4 || offX < width * -0.4,
                 moveNext = offX < 0,
                 isFirst = boxId == 0,
                 isLast = boxId == boxList.length-1,
@@ -95,10 +75,6 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
                     && (isFirst && !moveNext) 
                     || (isLast && moveNext)
 
-        // if(scrollTreshold && !forbidden){
-        //     scaleBoxClick()
-        //     setisScroll(true)
-        // } else 
         if(!isScroll && hitTreshold && !forbidden){
             scaleBoxNorm()
             setBarPosition(newBarPos)
@@ -138,12 +114,11 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
             justifyContent: isScroll ? 'center' 
                 : boxId == 0 ? 'flex-end' 
                 : boxId == boxList.length-1 ? 'flex-start' 
-                : 'center',   //(only neccessary if not endless.. update)
+                : 'center',
                 top: 0,
             position: 'absolute',
             display: 'flex',
             alignItems: 'center',
-            // background: 'orange',
             touchAction: 'none',
             ...barStyles
         },
@@ -166,12 +141,12 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
     const getBox = ({ val, index }) => 
         <div key={index} style={{ transition: '0.3s' }}>
             <div 
-                style={{ zIndex: 2, height: '100%', width: '100%', position: 'absolute' }} 
-                // onClick={() => { if(isScroll && !isBarMove) {
-                //     setBoxId(index) 
-                //     scaleBoxNorm()
-                //     setBarPosition(index * -width)
-                // }
+                style={{ 
+                    zIndex: 2, 
+                    height: '100%', 
+                    width: '100%', 
+                    position: 'absolute' 
+                }} 
                 onClick={() => { if(isScroll && !isBarMove) {
                     setBoxId(index) 
                     scaleBoxNorm()
@@ -217,9 +192,9 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
                 onHoverStart={!isScroll && scaleBoxHover}
                 onHoverEnd={!isScroll && scaleBoxNorm}
                 >
-                {!isScroll && endless && getBox({ val:'go to last', index: -1 })}
-                {boxList.map((val, index) => getBox({ val, index }))}
-                {!isScroll && endless && getBox({ val:'go to first', index: boxList.length })}
+                    {!isScroll && endless && getBox({ val:'go to last', index: -1 })}
+                    {boxList.map((val, index) => getBox({ val, index }))}
+                    {!isScroll && endless && getBox({ val:'go to first', index: boxList.length })}
             </motion.section>
         </div>
     </>

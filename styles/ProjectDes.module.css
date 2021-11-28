@@ -44,7 +44,7 @@
     }
 }
 
-// mobile
+ /* mobile */
 @media only screen and (max-width: 485px) {
     .projectDesCon{
         width: 359px;

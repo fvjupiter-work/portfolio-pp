@@ -10,7 +10,7 @@ import Image from 'next/image'
 import Fade from './Fade'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import CheckMark from '../components/svg/CheckMark'
-import styles from '../styles/Captcha.module.scss'
+import styles from '../styles/Captcha.module.css'
 
 export default function Captcha({ dataFields }) {
     const [chosenProjectSlug, setchosenProjectSlug] = useRecoilState(chosenProjectSlugState)

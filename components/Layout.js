@@ -171,7 +171,7 @@ export default function Layout({ children }) {
                                         : buttonHover == 1 ? 
                                         accentColorHover 
                                         : accentColor,
-                                    color: disabled ? 'rgb(200,200,200)' : 'white',
+                                    color: disabled ? 'rgb(200,200,200)' : data.isTextColorIntroWhite ? 'white' : 'black',
                                     cursor: disabled && 'default',
                                 }}
                                 onClick={toggleButt1}
@@ -182,7 +182,10 @@ export default function Layout({ children }) {
                                     {pathname != '/' || isInfo ? 'go back' : 'see more'}
                             </div>
                             <a href={`mailto:${data.mailAddress}`} style={{textDecoration: 'none'}}>
-                                <div style={{ background: buttonHover == 2 ? accentColorHover : accentColor }} 
+                                <div style={{ 
+                                        background: buttonHover == 2 ? accentColorHover : accentColor,
+                                        color: data.isTextColorIntroWhite ? 'white' : 'black'
+                                    }} 
                                     onMouseEnter={() => setbuttonHover(2)}
                                     onMouseLeave={() => setbuttonHover(-1)}
                                     className={`font flexCenter ${styles.button} ${styles.buttonContact} transit`}>

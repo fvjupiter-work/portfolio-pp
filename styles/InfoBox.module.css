@@ -60,7 +60,8 @@
 }
 
 /* mobile */
-@media only screen and (max-width: 485px) {
+@media only screen and (max-width: 485px),
+            screen and (max-height: 850px) {
     .pergament{
         width: 100%;
         height: 599px;

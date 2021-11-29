@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 
@@ -60,18 +59,18 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
     //gesture-trigger functions
     const panEndBar = (event, info) => {
         setTimeout(() => setisBarMove(false), 1)
-        const   offX = info.offset.x,
-                hitTreshold = offX > treshold || offX < -treshold,
-                moveNext = offX < 0,
-                isFirst = boxId == 0,
-                isLast = boxId == boxList.length-1,
-                nextIsFirst = isLast && endless && moveNext,
-                previousIsLast = isFirst && endless && !moveNext,
-                newBarPos = nextIsFirst ? 0
+        const offX = info.offset.x
+        const hitTreshold = offX > treshold || offX < -treshold
+        const moveNext = offX < 0
+        const isFirst = boxId == 0
+        const isLast = boxId == boxList.length-1
+        const nextIsFirst = isLast && endless && moveNext
+        const previousIsLast = isFirst && endless && !moveNext
+        const newBarPos = nextIsFirst ? 0
                     : previousIsLast ? (boxList.length-1) * -width
                     : moveNext ? barPosition - width 
-                    : barPosition + width,
-                forbidden = !endless && !isScroll 
+                    : barPosition + width
+        const forbidden = !endless && !isScroll
                     && (isFirst && !moveNext) 
                     || (isLast && moveNext)
 

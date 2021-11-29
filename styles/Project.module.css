@@ -79,7 +79,8 @@
     margin-bottom: 20px;
 }
 
-@media only screen and (max-width: 860px) { 
+@media only screen and (max-width: 860px),
+            screen and (max-height: 950px) { 
     .con{height: 710px; padding: 0 8px;}
     .rightCon{
       width: 437px;
@@ -96,9 +97,13 @@
   }
   
  /* mobile */
-@media only screen and (max-width: 485px) {
+@media only screen and (max-width: 485px),
+            screen and (max-height: 850px) {
     .con{ height: 556px; padding: 0 7px; }
-    .rightCon{ height: 556px; width: 344.5px; }
+    .rightCon{ height: 556px; width: 344.5px; display: flex; }
+    .leftCon{
+        display: none;
+      }
     .bigImgWrap{
         width: 344.5px;
         height: 556px;

@@ -108,8 +108,8 @@ export default function Layout({ children }) {
             /> 
         : null}
         <Head>
-            <title>Peter Plügler</title>
-            <meta name="Portfolio" content="Projects of Peter Plügler" />
+            <title>Peter Pflügler</title>
+            <meta name="Portfolio" content="Projects of Peter Pflügler" />
             <link rel="icon" type="image/png" href="/peterFavicon.png" />
         </Head>
         <div className={styles.screen} ref={screenRef}/>

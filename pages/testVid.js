@@ -5,11 +5,11 @@ import { useRecoilValue } from 'recoil'
 import { screenState } from '../lib/state'
 
 export default function testVid() {
-    const screen = useRecoilValue(screenState)
+    // const screen = useRecoilValue(screenState)
     return (
         <div>
             
-            <Slide 
+            {/* <Slide 
                         currentBoxId={1}
                         boxIdHandler={()=>{}} 
                         height={screen == 1 ? 683-8 : screen == 2 ? 556-8 : screen == 3 ? 444.8 : 1}
@@ -18,7 +18,7 @@ export default function testVid() {
                         boxList={[<ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U'/>]
                            
                         }
-                    />
+                    /> */}
         </div>
     )
 }

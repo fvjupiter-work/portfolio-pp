@@ -12,7 +12,7 @@ export default function InfoBox({ isProjectRoute }) {
     const isInfo = useRecoilValue(isInfoState)
     const isProjectInfo = useRecoilValue(isProjectInfoState)
     const screen = useRecoilValue(screenState)
-    const [isGeneral, setisGeneral] = useState(false)
+    const [isGeneral, setisGeneral] = useState(true)
     const [isCV, setisCV] = useState(false)
     const [isAbout, setisAbout] = useState(false)
     const toggle = (id) => {
@@ -28,7 +28,7 @@ export default function InfoBox({ isProjectRoute }) {
         }
     }
     useEffect(() => {
-        setisGeneral(false)
+        setisGeneral(true)
         setisCV(false)
         setisAbout(false)
     }, [isInfo])

@@ -74,6 +74,14 @@
     width: 31.5px;
     cursor: pointer;
 }
+.fullSSvg{ height: 80; width: 80;}
+.fullSWrap{
+    height: 31.5px; 
+    width: 31.5px;
+    overflow: hidden;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
 .title{
     font-weight: 700;
     margin-bottom: 20px;

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import React, { useState, useEffect, useRef, createContext } from 'react'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { 
     isInfoState, 
     chosenProjectSlugState, 
@@ -8,7 +8,9 @@ import {
     dataState, 
     backgroundImgState, 
     accentColorState, 
-    screenState
+    screenState,
+    isFullscreenState,
+    fullSContext
 } from '../lib/state'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -20,10 +22,20 @@ import TextButton from './svg/TextButton'
 import Image from 'next/image'
 import styles from '../styles/Layout.module.css'
 
+import { BsFullscreen, BsFullscreenExit } from "react-icons/bs"
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import FullS from './svg/FullS'
+
+
 export default function Layout({ children }) {
     const router = useRouter()
     const pathname = router.pathname
     const isProjectRoute = pathname.split('/')[1] == 'projects' //'[project_id]'
+
+    // fullscreen
+    const setisFullscreen = useSetRecoilState(isFullscreenState)
+    const handleFullscreen = useFullScreenHandle()
+
 
     // navigation states
     const [isInfo, setisInfo] = useRecoilState(isInfoState)
@@ -122,7 +134,9 @@ export default function Layout({ children }) {
                         styles.childrenBoxProject : ''}
                     `}
                     >
-                    {children}
+                    <fullSContext.Provider value={{ handleFullscreen }}>
+                        {children}
+                    </fullSContext.Provider>
                 </div>
 
                 <div
@@ -164,6 +178,7 @@ export default function Layout({ children }) {
                                 </div> 
                             : null}
                         </div>
+                        <div className={`flexCenter transit ${styles.fullSWrap}`}>{isProjectRoute && screen > 0 && <div style={{ cursor:'pointer' }} onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}><FullS styles={styles}/></div>}</div>
                         <div className={`flexCenter ${styles.buttonBox}`}>
                             <div 
                                 style={{ 

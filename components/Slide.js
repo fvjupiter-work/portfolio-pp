@@ -10,10 +10,22 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
     const stiffnessClick = 175
     const dragElastic = 0.175
     const borderRadiusNorm = 0 // 0 if backdrop!
-    const borderRadiusClick = borderRadius
-    const backgroundWrapStyles = {} // will be passed to styles
+    const borderRadiusClick = 0//borderRadius
+
+
+    const [boxShadowww, setboxShadowww] = useState('')
+    const [bgColor, setbgColor] = useState('white')
+
+
+    const backgroundWrapStyles = { 
+        backgroundColor: bgColor
+        // backgroundColor: 'lightGray'
+    } // will be passed to styles
     const barStyles = {}
-    const boxStyles = {}
+    const boxStyles = {
+        boxShadow: boxShadowww,
+        // '0 62.5px 125px -25px rgba(50, 50, 73, 0.5), 0 37.5px 75px -37.5px rgba(0, 0, 0, 0.6)',
+    }
     const endless = false // may delete
 
     //controls 
@@ -52,9 +64,53 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
     const scaleBoxHover = () => controlsBox.start({ scale: scaleHover,  borderRadius: borderRadiusClick })
     const scaleBoxClick = () => controlsBox.start({ 
         scale: scaleClick, 
-        borderRadius: borderRadiusClick,
+        // borderRadius: borderRadiusClick,
         transition: { type: 'spring', stiffness: stiffnessClick,  mass: 0.1, }
     }) 
+
+
+
+    const [showEditCount, setshowEditCount] = useState(0)
+    useEffect(() => setshowEditCount(showEditCount+1), [isScroll])
+    useEffect(() => setshowEditCount(0), [boxId])
+    const [variant, setvariant] = useState('none');
+    const handleChange = (event) => setvariant(event.target.value)
+    const handleChange2 = (event) => setbgColor(event.target.value)
+    useEffect(() => {
+        let newStyle
+        switch (variant) {
+            case 'none': newStyle = 'none'
+                break;
+            case 'boxShadow 1': newStyle = '0 5px 10px -2px rgba(50, 50, 73, 0.5)'
+                break;
+            case 'boxShadow 2': newStyle = '0 62.5px 125px -25px rgba(50, 50, 73, 0.25), 0 37.5px 75px -37.5px rgba(0, 0, 0, 0.3)'
+                break;
+            case 'boxShadow 3': newStyle = '0 62.5px 125px -25px rgba(50, 50, 73, 0.5), 0 37.5px 75px -37.5px rgba(0, 0, 0, 0.6)'
+                break;
+        
+            default:
+                break;
+        }
+        setboxShadowww(newStyle)
+    }, [variant])
+    
+    const getBgVariants = () => showEditCount > 4 ? <div style={{position: 'fixed', top: 100, left: 20,}}>
+        <div style={{ display: 'flex', alignItems: 'center'}}>
+            <select value={variant} onChange={handleChange}>
+                <option value="none">none</option>
+                <option value="boxShadow 1">boxShadow 1</option>
+                <option value="boxShadow 2">boxShadow 2</option>
+                <option value="boxShadow 3">boxShadow 3</option>
+            </select>
+            <input style={{margin: 10, padding: 0}} type='color' value={bgColor} onChange={handleChange2}/>
+            <div style={{cursor: 'pointer'}} onClick={() => setshowEditCount(0)}>x</div>
+        </div>
+    </div> : <></>
+
+
+
+
+
 
     //gesture-trigger functions
     const panEndBar = (event, info) => {
@@ -130,7 +186,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
             backgroundSize: 'contain',
             backgroundColor: 'white',
             overflow: 'hidden',
-            boxShadow: '0 62.5px 125px -25px rgba(50, 50, 73, 0.5), 0 37.5px 75px -37.5px rgba(0, 0, 0, 0.6)',
+            // boxShadow: '0 62.5px 125px -25px rgba(50, 50, 73, 0.5), 0 37.5px 75px -37.5px rgba(0, 0, 0, 0.6)',
             touchAction: 'none',
             ...boxStyles
         }
@@ -165,7 +221,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
             </motion.div>
         </div>
 
-    return <>
+    return <> {getBgVariants()}
         <div 
             style={sty.backgroundWrap}
             animate={controlsWrap}

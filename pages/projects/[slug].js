@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { 
     projectPicIdState, 
@@ -7,7 +7,9 @@ import {
     accentColorState, 
     projectInfoState, 
     isInfoState,
-    screenState
+    screenState,
+    isFullscreenState,
+    fullSContext
 } from '../../lib/state'
 import Image from 'next/image'
 
@@ -21,11 +23,55 @@ import ArrowRight from '../../components/svg/ArrowRight'
 import ArrowLeft from '../../components/svg/ArrowLeft'
 import styles from '../../styles/Project.module.css'
 
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import { BsFullscreen, BsFullscreenExit, BsXLg } from "react-icons/bs"
+import { useRouter } from 'next/router'
+import FullS from '../../components/svg/FullS'
+
 export default function Project({ project, bgImages, dataFields }) {
 
     const { title, description, thumbnail, featuredImages } = project.fields
     const images = [...featuredImages]
     // images.unshift(thumbnail)
+
+    const router = useRouter()
+    const isProjectRoute = router.pathname.split('/')[1] == 'projects'
+
+    // fullscreen
+    const { handleFullscreen } = useContext(fullSContext)
+    const [isFullscreen, setisFullscreen] = useRecoilState(isFullscreenState)
+    const getFullscreenBox = () => {
+        return(
+        <FullScreen handle={handleFullscreen}>
+            <div style={{
+                background: 'black', 
+                display: isFullscreen ? 'block' : 'none',
+                position: 'fixed',
+                top: 0, left: 0, bottom: 0, right: 0,
+                zIndex: 10000,
+                }} 
+                >
+                <Image
+                    alt='shotByPeter'             
+                    src={`https:${projectPicId == -1 ? 
+                        thumbnail.fields.file.url 
+                        : images[projectPicId].fields.file.url}`
+                    }
+                    layout='fill'
+                    objectFit='contain'
+                    objectPosition='top'
+                    placeholder="blur"
+                    blurDataURL={'/imgPlaceholder.gif'}
+                />
+                <div 
+                    style={{ position: 'fixed', zIndex:10, top: 40, left: 50, color: 'white', padding: 3, paddingBottom: 0, borderRadius: 3, background: 'rgba(0,0,0,0.2)', cursor:'pointer'}} 
+                    onClick={() => {  handleFullscreen.exit(); setisFullscreen(false) }}>
+                        <BsXLg size={25} />
+                </div>
+            </div>
+        </FullScreen>
+        )
+    }
 
     // states
     const setdata = useSetRecoilState(dataState)
@@ -79,8 +125,8 @@ export default function Project({ project, bgImages, dataFields }) {
     const screen = useRecoilValue(screenState)
     useEffect(() => setSmallImgBox_height(), [])
     useEffect(() => setSmallImgBox_height(), [screen])
-
-    return <>
+    
+    return <>{getFullscreenBox()}
         <div className={`${styles.con}`}>
             <div className={`${styles.leftCon}`} ref={leftConRef}>
                 <div style={{ height: smallImgBox_height }} 
@@ -124,6 +170,7 @@ export default function Project({ project, bgImages, dataFields }) {
                     <div className={`flexCenter ${styles.buttonBox}`}>
                         {getArrow(true)}
                         {getArrow()}
+                        <div className={`flexCenter transit ${styles.fullSWrap}`}>{isProjectRoute && screen == 0 && <div style={{ marginLeft: 10, cursor:'pointer' }} onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}><FullS styles={styles}/></div>}</div>
                     </div>
                     <div className={`font ${styles.title}`}>{title}</div>
                     <div className={`font ${styles.content}`}>
@@ -138,7 +185,7 @@ export default function Project({ project, bgImages, dataFields }) {
                         boxIdHandler={setprojectPicId} 
                         height={screen == 1 ? 683-8 : screen == 2 ? 556-8 : screen == 3 ? 444.8 : 1}
                         width={screen == 1 ? 437 : screen == 2 ? 344.5 : screen == 3 ? 275.6 : 1}
-                        borderRadius={dataFields.borderRadiusOfImagesImageSlider}
+                        // borderRadius={dataFields.borderRadiusOfImagesImageSlider}
                         boxList={images.map((pic, index) => { 
                             return (
                                 <Image 

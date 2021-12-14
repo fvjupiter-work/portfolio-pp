@@ -36,7 +36,7 @@
 }
 
 @media only screen and (max-width: 860px),
-            screen and (max-height: 950px) {
+            screen and (max-height: 937px) {
     .smallTitleBoxProject{
         opacity: 1;
     }
@@ -47,7 +47,7 @@
 
  /* mobile */
 @media only screen and (max-width: 485px),
-            screen and (max-height: 850px) {
+            screen and (max-height: 786px) {
     .smallTitleBoxProject{
         opacity: 1;
     }
@@ -58,7 +58,8 @@
     }
     .rightCon{ height: 557px; }
 }
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 400px),
+            screen and (max-height: 652px) {
     .projectDesCon{
         width: 287.2px;
         height: 479.2px;

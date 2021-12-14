@@ -103,17 +103,6 @@
 .infoSVG{ height: 25px; width: 25px;}
 .shuffleSVG{ width: 22px; height: 25px; }
 .textSVG{ height: 40.3px; width: 40.3px; margin-top: 1px; }
-.fullSSvg{ height: 83px; width: 83px; }
-.fullSWrap{
-    padding-top: 3px;
-    position: absolute;
-    left: 78px;
-    height: 31.5px; 
-    width: 31.5px;
-    overflow: hidden;
-    padding-bottom: 5px;
-    cursor: pointer;
-}
 
 .infoButtProject{
     padding-top: 0px;
@@ -153,10 +142,9 @@
     height: 0;
     width: 0px;
 }
-
  /* small Desktop */
 @media only screen and (max-width: 860px),
-            screen and (max-height: 950px) {
+            screen and (max-height: 937px) {
     .conHeightProject{ height: 786px; }
     .conWidthProject{ width: 455px; }
     .childrenBox{ padding: 9px 0; height: 728px;}
@@ -165,13 +153,30 @@
     .infoBoxVar3{ height: 36px; }
     .controlsInnerBox{ width: 435px; }
     .textButtProject{ display: block; padding-top: 2px;}
-    .infoButtProject{ padding-top: 0.5px; }
+    .infoButtProject{ padding-top: 1px; }
+    .fullSSvg{ height: 71px; width: 71px; }
+    .fullSWrap{
+        padding-top: 3.5px;
+        position: absolute;
+        left: 78px;
+        height: 31.5px; 
+        width: 28px;
+        overflow: hidden;
+        padding-bottom: 5px;
+        cursor: pointer;
+    }
+    .playWrap{
+        /* width: fit-content; */
+        position: absolute;
+        left: 74.5px;
+        margin-bottom: 1px;
+    }
     .screen{ width: 1px; }
 }
 
  /* mobile */
 @media only screen and (max-width: 485px),
-            screen and (max-height: 850px) {
+            screen and (max-height: 786px) {
     .con{ height: 652px; width: 361px; }
     .childrenBox{ padding: 7px 0; height: 599px; }
     .childrenBoxSmallScreen{ height: 36px; }
@@ -186,12 +191,21 @@
     .shuffleWrap{ padding-bottom: 4px; margin-bottom: -4px; }
     .infoButtProject{ padding-top: 5px; }
     .infoButt{ padding-top: 5px; }
-    .fullSSvg{ height: 92px; width: 92px; }
+    .fullSSvg{ height: 90px; width: 90px; }
     .fullSWrap{
         padding-top: 1px;
         width: 39px;
         height: 39px;
-        left: 93px;
+        left: 94px;
+    }
+    .playWrap{
+        /* width: fit-content; */
+        position: absolute;
+        left: 94px;
+        padding-bottom: 1px;
+        height: 34px;
+        width: 34px;
+
     }
 
     .controlsCon{ height: 51px; width: 359px; }
@@ -207,7 +221,8 @@
 
     .screen{ width: 2px; }
 }
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 400px),
+            screen and (max-height: 652px) {
     .con{ height: 521.6px; width: 288.8px; }
     .childrenBox{ padding: 6px 0; height: 479px; }
     .childrenBoxSmallScreen{ height: 28.8px; }
@@ -222,12 +237,21 @@
     .shuffleWrap{ padding-bottom: 3.2px; margin-bottom: -3.2px; }
     .infoButtProject{ padding-top: 4px; }
     .infoButt{ padding-top: 4px; }
-    .fullSSvg{ height: 78px; width: 78px; }
+    .fullSSvg{ height: 69px; width: 69px; }
     .fullSWrap{
         padding-top: 3px;
-        width: 39px;
+        width: 37px;
         height: 39px;
         left: 74px;
+    }
+    .playWrap{
+        /* width: fit-content; */
+        position: absolute;
+        left: 76px;
+        padding-bottom: 1px;
+        height: 28px;
+        width: 28px;
+
     }
 
     .controlsCon{ height: 40.8px; width: 287.2px; }

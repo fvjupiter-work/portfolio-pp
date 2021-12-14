@@ -61,7 +61,7 @@
 
 /* mobile */
 @media only screen and (max-width: 485px),
-            screen and (max-height: 850px) {
+            screen and (max-height: 786px) {
     .pergament{
         width: 100%;
         height: 599px;
@@ -102,7 +102,8 @@
     }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 400px),
+            screen and (max-height: 652px) {
     .pergament{
         width: 100%;
         height: 479.2px;

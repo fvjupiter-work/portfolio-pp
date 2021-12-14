@@ -80,7 +80,8 @@ a:active{
   transform: scale(1.1);
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 400px),
+            screen and (max-height: 652px) {
   .font{
     font-size: 10.4px;
     line-height: 1.04;

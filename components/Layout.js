@@ -10,6 +10,7 @@ import {
     accentColorState, 
     screenState,
     isFullscreenState,
+    isVideoState,
     fullSContext
 } from '../lib/state'
 import Head from 'next/head'
@@ -25,6 +26,7 @@ import styles from '../styles/Layout.module.css'
 import { BsFullscreen, BsFullscreenExit } from "react-icons/bs"
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import FullS from './svg/FullS'
+import { AiFillPlayCircle } from "react-icons/ai"
 
 
 export default function Layout({ children }) {
@@ -51,6 +53,8 @@ export default function Layout({ children }) {
     const accentColor = useRecoilValue(accentColorState)
 
     // other states & functions
+    const [isVideo, setisVideo] = useRecoilState(isVideoState)
+    const [isPlayHover, setisPlayHover] = useState(false)
     const [buttonHover, setbuttonHover] = useState(-1)
     const [accentColorHover, setaccentColorHover] = useState('')
     const calcAccentColorHover = () => {
@@ -178,7 +182,21 @@ export default function Layout({ children }) {
                                 </div> 
                             : null}
                         </div>
-                        <div className={`flexCenter transit ${styles.fullSWrap}`}>{isProjectRoute && screen > 0 && <div style={{ cursor:'pointer' }} onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}><FullS styles={styles}/></div>}</div>
+                        {!isVideo ? 
+                            <div className={`flexCenter transit ${styles.fullSWrap}`}>{isProjectRoute && screen > 0 && 
+                                <div style={{ cursor:'pointer' }} onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}>
+                                    <FullS styles={styles}/>
+                                </div>}
+                            </div> 
+                        : isProjectRoute && screen > 0 && 
+                            <AiFillPlayCircle size={27} 
+                            onMouseEnter={() => setisPlayHover(true)} 
+                            onMouseLeave={() => setisPlayHover(false)} 
+                            color={isPlayHover ? '#E6E6E6' : '#808080'} 
+                            className={'transit ' + styles.playWrap}
+                            onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}
+                            />
+                        }
                         <div className={`flexCenter ${styles.buttonBox}`}>
                             <div 
                                 style={{ 

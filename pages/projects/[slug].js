@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useContext } from 'react'
+import React, { useEffect, useState, useRef, useContext, useCallback } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { 
     projectPicIdState, 
@@ -9,6 +9,7 @@ import {
     isInfoState,
     screenState,
     isFullscreenState,
+    isVideoState,
     fullSContext
 } from '../../lib/state'
 import Image from 'next/image'
@@ -23,15 +24,17 @@ import ArrowRight from '../../components/svg/ArrowRight'
 import ArrowLeft from '../../components/svg/ArrowLeft'
 import styles from '../../styles/Project.module.css'
 
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { BsFullscreen, BsFullscreenExit, BsXLg } from "react-icons/bs"
+import { FullScreen } from "react-full-screen";
 import { useRouter } from 'next/router'
 import FullS from '../../components/svg/FullS'
+import X from '../../components/svg/X'
+import ReactPlayer from 'react-player/lazy'
+import { AiFillPlayCircle } from "react-icons/ai"
 
 export default function Project({ project, bgImages, dataFields }) {
 
-    const { title, description, thumbnail, featuredImages } = project.fields
-    const images = [...featuredImages]
+    const { title, description, thumbnail, featuredImages, videoLinks } = project.fields
+    const images = [...videoLinks, ...featuredImages]
     // images.unshift(thumbnail)
 
     const router = useRouter()
@@ -40,7 +43,9 @@ export default function Project({ project, bgImages, dataFields }) {
     // fullscreen
     const { handleFullscreen } = useContext(fullSContext)
     const [isFullscreen, setisFullscreen] = useRecoilState(isFullscreenState)
-    const getFullscreenBox = () => {
+    const getFullscreenBox = () => { 
+
+        // console.log(images[projectPicId == -1 ? 0 : projectPicId].fields.file)
         return(
         <FullScreen handle={handleFullscreen}>
             <div style={{
@@ -51,22 +56,22 @@ export default function Project({ project, bgImages, dataFields }) {
                 zIndex: 10000,
                 }} 
                 >
-                <Image
-                    alt='shotByPeter'             
-                    src={`https:${projectPicId == -1 ? 
-                        thumbnail.fields.file.url 
-                        : images[projectPicId].fields.file.url}`
-                    }
-                    layout='fill'
-                    objectFit='contain'
-                    objectPosition='top'
-                    placeholder="blur"
-                    blurDataURL={'/imgPlaceholder.gif'}
-                />
+                { typeof images[projectPicId == -1 ? 0 : projectPicId] != 'string' ?
+                    <Image
+                        alt='shotByPeter'             
+                        src={`https:${images[projectPicId == -1 ? 0 : projectPicId].fields.file.url}`}
+                        layout='fill'
+                        objectFit='contain'
+                        objectPosition='center'
+                        placeholder="blur"
+                        blurDataURL={'/imgPlaceholder.gif'}
+                    />
+                : <ReactPlayer playing={isFullscreen} controls={true} url={videoLinks[projectPicId]} width='100%' height='100%'/>
+                }
                 <div 
-                    style={{ position: 'fixed', zIndex:10, top: 40, left: 50, color: 'white', padding: 3, paddingBottom: 0, borderRadius: 3, background: 'rgba(0,0,0,0.2)', cursor:'pointer'}} 
+                    style={{ position: 'fixed', zIndex:10, top: screen < 2 ? 80 : 30, left: screen < 2 ? 50 : 30, padding: 3, paddingBottom: 0, borderRadius: 3, cursor:'pointer'}} 
                     onClick={() => {  handleFullscreen.exit(); setisFullscreen(false) }}>
-                        <BsXLg size={25} />
+                        <X />
                 </div>
             </div>
         </FullScreen>
@@ -80,7 +85,19 @@ export default function Project({ project, bgImages, dataFields }) {
     const [backgroundImg, setbackgroundImg] = useRecoilState(backgroundImgState)
     const setprojectInfo = useSetRecoilState(projectInfoState)
     const isInfo = useRecoilValue(isInfoState)
-    
+    const escFunction = useCallback((event) => {
+        if(event.keyCode === 27) {//when esc is pressed
+            handleFullscreen.exit(); setisFullscreen(false)
+        }
+    }, [])
+    useEffect(() => {
+        document.addEventListener("keydown", escFunction, false)
+        return () => document.removeEventListener("keydown", escFunction, false)
+    }, [])
+    const [isVideo, setisVideo] = useRecoilState(isVideoState)
+    useEffect(() => { console.log(projectPicId < videoLinks.length)
+        setisVideo(projectPicId > videoLinks.length-1 ? false : true)
+    }, [projectPicId])
     useEffect(() => {
         setprojectPicId(0)
         setaccentColor(`rgb(
@@ -93,6 +110,8 @@ export default function Project({ project, bgImages, dataFields }) {
         let randomNum = Math.floor(Math.random() * bgImages.length)
         if(!backgroundImg) setbackgroundImg(`https:${bgImages[randomNum].fields.file.url}`)
     }, [])
+
+    
 
     const getArrow = (turn) => <div onClick={() => {
                 if(!turn) setprojectPicId(projectPicId < images.length-1 ? projectPicId+1 : 0)
@@ -125,6 +144,30 @@ export default function Project({ project, bgImages, dataFields }) {
     const screen = useRecoilValue(screenState)
     useEffect(() => setSmallImgBox_height(), [])
     useEffect(() => setSmallImgBox_height(), [screen])
+
+    const [isPlayHover, setisPlayHover] = useState(false)
+    const Player = ({ url }) => {
+        const [isReady, setisReady] = useState(false)
+        // setTimeout(() => { 
+        //     setisReady(true)
+        // }, 1000);
+        return(
+            <>
+                {/* {!isReady ?
+                <Image 
+                    src={'/imgPlaceholder.gif'}
+                    layout='fill'
+                    objectFit='cover'
+                    objectPosition='50% 50%'
+                    placeholder="blur"
+                    blurDataURL={'/imgPlaceholder.gif'}
+                /> 
+                :   */}
+                <ReactPlayer playing={false} controls={false} url={url} width='100%' height='100%' onReady={()=> setisReady(true)}/>
+                 {/* } */}
+            </>
+        )
+    }
     
     return <>{getFullscreenBox()}
         <div className={`${styles.con}`}>
@@ -150,16 +193,20 @@ export default function Project({ project, bgImages, dataFields }) {
                             <div className={`${styles.smallImgWrap}`}>
                                 <div 
                                     className={`scaleHover transit ${styles.smallImgWrap}`}
-                                    >
-                                    <Image 
-                                        alt='shotByPeter' 
-                                        src={`https:${pic.fields.file.url}`}
-                                        layout='fill'
-                                        objectFit='cover'
-                                        objectPosition='50% 50%'
-                                        placeholder="blur"
-                                        blurDataURL={'/imgPlaceholder.gif'}
-                                    />
+                                    >{index > videoLinks.length-1 ?
+                                        <Image 
+                                            alt='shotByPeter' 
+                                            src={`https:${pic.fields.file.url}`}
+                                            layout='fill'
+                                            objectFit='cover'
+                                            objectPosition='50% 50%'
+                                            placeholder="blur"
+                                            blurDataURL={'/imgPlaceholder.gif'}
+                                        /> 
+                                    : <><div onClick={() => setprojectPicId(index)} style={{ position: 'absolute', zIndex:9999, cursor: 'pointer', top: 0, left: 0, width: '100%', height: '100%'}}/>
+                                    <ReactPlayer playing={false} controls={false} url={videoLinks[index]} width='100%' height='100%'/>
+                                    </>
+                                    }   
                                 </div>
                             </div>
                             <div className={`font ${styles.num}`}>{index+1}</div>
@@ -170,7 +217,21 @@ export default function Project({ project, bgImages, dataFields }) {
                     <div className={`flexCenter ${styles.buttonBox}`}>
                         {getArrow(true)}
                         {getArrow()}
-                        <div className={`flexCenter transit ${styles.fullSWrap}`}>{isProjectRoute && screen == 0 && <div style={{ marginLeft: 10, cursor:'pointer' }} onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}><FullS styles={styles}/></div>}</div>
+                        {projectPicId > videoLinks.length-1 ? 
+                        <div className={`flexCenter transit ${styles.fullSWrap}`}>
+                            {isProjectRoute && screen == 0 && 
+                                <div style={{ marginLeft: 10, cursor:'pointer' }} onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}>
+                            <FullS styles={styles}/> 
+                        </div>}</div>
+                        : <AiFillPlayCircle size={27} 
+                            onMouseEnter={() => setisPlayHover(true)} 
+                            onMouseLeave={() => setisPlayHover(false)} 
+                            color={isPlayHover ? '#E6E6E6' : '#808080'} 
+                            style={{ marginBottom: 3, marginLeft: 1, cursor: 'pointer' }}
+                            className={'transit'}
+                            onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}
+                            />
+                        }
                     </div>
                     <div className={`font ${styles.title}`}>{title}</div>
                     <div className={`font ${styles.content}`}>
@@ -185,9 +246,10 @@ export default function Project({ project, bgImages, dataFields }) {
                         boxIdHandler={setprojectPicId} 
                         height={screen == 1 ? 683-8 : screen == 2 ? 556-8 : screen == 3 ? 444.8 : 1}
                         width={screen == 1 ? 437 : screen == 2 ? 344.5 : screen == 3 ? 275.6 : 1}
-                        // borderRadius={dataFields.borderRadiusOfImagesImageSlider}
+                        borderRadius={dataFields.borderRadiusOfImagesImageSlider}
                         boxList={images.map((pic, index) => { 
-                            return (
+                            return ( 
+                            <>{index > videoLinks.length-1 ?
                                 <Image 
                                     key={index}
                                     alt='shotByPeter' 
@@ -198,23 +260,25 @@ export default function Project({ project, bgImages, dataFields }) {
                                     placeholder="blur"
                                     blurDataURL={'/imgPlaceholder.gif'}
                                 />
+                                : <Player url={videoLinks[index]} />}
+                            </>
                             )
                         })}
                     />
                 :   <Fade delay={0.2} duratio={0.8} scale={[0.8, 1]}>
                         <div className={`transit ${styles.bigImgWrap}`}>
+                        {projectPicId > videoLinks.length-1 ?
                             <Image
                                 alt='shotByPeter'             
-                                src={`https:${projectPicId == -1 ? 
-                                    thumbnail.fields.file.url 
-                                    : images[projectPicId].fields.file.url}`
-                                }
+                                src={`https:${images[projectPicId == -1 ? 0 : projectPicId].fields.file.url}`}
                                 layout='fill'
                                 objectFit='contain'
                                 objectPosition='top'
                                 placeholder="blur"
                                 blurDataURL={'/imgPlaceholder.gif'}
                             />
+                            : <ReactPlayer playing={false} controls={false} url={videoLinks[projectPicId]} width='100%' height='100%'/>
+                        } 
                         </div>
                     </Fade>
                 }

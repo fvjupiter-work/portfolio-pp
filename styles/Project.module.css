@@ -74,12 +74,12 @@
     width: 31.5px;
     cursor: pointer;
 }
-.fullSSvg{ height: 80; width: 80;}
+.fullSSvg{ height: 75px; width: 75px;}
 .fullSWrap{
-    height: 31.5px; 
-    width: 31.5px;
+    height: 28px; 
+    width: 25px;
     overflow: hidden;
-    padding-bottom: 5px;
+    padding-bottom: 3px;
     cursor: pointer;
 }
 .title{
@@ -88,7 +88,7 @@
 }
 
 @media only screen and (max-width: 860px),
-            screen and (max-height: 950px) { 
+            screen and (max-height: 937px) { 
     .con{height: 710px; padding: 0 8px;}
     .rightCon{
       width: 437px;
@@ -106,7 +106,7 @@
   
  /* mobile */
 @media only screen and (max-width: 485px),
-            screen and (max-height: 850px) {
+            screen and (max-height: 786px) {
     .con{ height: 556px; padding: 0 7px; }
     .rightCon{ height: 556px; width: 344.5px; display: flex; }
     .leftCon{
@@ -117,7 +117,8 @@
         height: 556px;
       }
 }
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 400px),
+            screen and (max-height: 652px) {
     .con{ height: 444.8px; padding: 0 5.6px; }
     .rightCon{ height: 444.8px; width: 275.6px; }
     .bigImgWrap{

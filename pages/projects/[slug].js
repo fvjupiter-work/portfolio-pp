@@ -48,7 +48,7 @@ export default function Project({ project, bgImages, dataFields }) {
 
         // console.log(images[projectPicId == -1 ? 0 : projectPicId].fields.file)
         return(
-        <FullScreen handle={handleFullscreen}>
+        <FullScreen handle={handleFullscreen} className='fullscreen'>
             <div style={{
                 background: 'black', 
                 display: isFullscreen ? 'block' : 'none',

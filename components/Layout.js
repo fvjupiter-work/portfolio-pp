@@ -113,7 +113,7 @@ export default function Layout({ children }) {
         : null}
         <Head>
             <title>Peter Pflügler</title>
-            <meta name="Portfolio" content="Projects of Peter Pflügler" />
+            <meta name="Portfolio" content="Projects of Peter Pflügler width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
             <link rel="icon" type="image/png" href="/peterFavicon.png" />
         </Head>
         <div className={styles.screen} ref={screenRef}/>

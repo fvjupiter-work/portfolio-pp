@@ -79,7 +79,10 @@ a:active{
   -ms-transform: scale(1.1);
   transform: scale(1.1);
 }
-
+.fullscreen{
+  touch-action: auto !important;
+  z-index: 99999999;
+}
 @media only screen and (max-width: 400px),
             screen and (max-height: 652px) {
   .font{

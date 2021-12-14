@@ -51,7 +51,9 @@ export default function Project({ project, bgImages, dataFields }) {
         <FullScreen handle={handleFullscreen} className='fullscreen'>
             <div style={{
                 background: 'black', 
-                display: isFullscreen ? 'block' : 'none',
+                display: isFullscreen ? 'flex' : 'none',
+                alignItems:'center',
+                justifyContent: 'center',
                 position: 'fixed',
                 top: 0, left: 0, bottom: 0, right: 0,
                 zIndex: 10000,
@@ -262,7 +264,7 @@ export default function Project({ project, bgImages, dataFields }) {
                                     placeholder="blur"
                                     blurDataURL={'/imgPlaceholder.gif'}
                                 />
-                                : <Player url={videoLinksCopy[index]} />}
+                                : <ReactPlayer playing={false} controls={false} url={videoLinksCopy[index]} width={screen == 1 ? 437 : screen == 2 ? 344.5 : screen == 3 ? 275.6 : 1} height='100%' />}
                             </>
                             )
                         })}
@@ -279,7 +281,7 @@ export default function Project({ project, bgImages, dataFields }) {
                                 placeholder="blur"
                                 blurDataURL={'/imgPlaceholder.gif'}
                             />
-                            : <ReactPlayer playing={false} controls={false} url={videoLinksCopy[projectPicId]} width='100%' height='100%'/>
+                            : <ReactPlayer playing={false} controls={false} url={videoLinksCopy[projectPicId]} width='600' height='100%'/>
                         } 
                         </div>
                     </Fade>

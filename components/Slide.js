@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 
-export default function Example({ boxList, currentBoxId, boxIdHandler, height, width, borderRadius })  {
+export default function Example({ isFullscreen, boxList, currentBoxId, boxIdHandler, height, width, borderRadius })  {
     const treshold = width / 8
     const scaleHover = 0.97
     const scaleClick = 0.93
@@ -103,7 +103,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundColor: 'white',
-            touchAction: 'none',
+            touchAction: !isFullscreen && 'none',
             ...backgroundWrapStyles,
         },
         bar: { 
@@ -118,7 +118,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
             position: 'absolute',
             display: 'flex',
             alignItems: 'center',
-            touchAction: 'none',
+            touchAction: !isFullscreen && 'none',
             ...barStyles
         },
         box: {
@@ -131,7 +131,7 @@ export default function Example({ boxList, currentBoxId, boxIdHandler, height, w
             backgroundColor: 'white',
             overflow: 'hidden',
             // boxShadow: '0 62.5px 125px -25px rgba(50, 50, 73, 0.5), 0 37.5px 75px -37.5px rgba(0, 0, 0, 0.6)',
-            touchAction: 'none',
+            touchAction: !isFullscreen && 'none',
             ...boxStyles
         }
     }

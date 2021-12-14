@@ -243,6 +243,7 @@ export default function Project({ project, bgImages, dataFields }) {
             <div className={`flexCenter ${styles.rightCon}`}>
                 {screen > 0 ?
                     <Slide 
+                        isFullscreen={isFullscreen}
                         currentBoxId={projectPicId}
                         boxIdHandler={setprojectPicId} 
                         height={screen == 1 ? 683-8 : screen == 2 ? 556-8 : screen == 3 ? 444.8 : 1}

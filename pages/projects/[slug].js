@@ -34,7 +34,8 @@ import { AiFillPlayCircle } from "react-icons/ai"
 export default function Project({ project, bgImages, dataFields }) {
 
     const { title, description, thumbnail, featuredImages, videoLinks } = project.fields
-    const images = [...videoLinks, ...featuredImages]
+    const videoLinksCopy = videoLinks ? [...videoLinks] : []
+    const images = [...videoLinksCopy, ...featuredImages]
     // images.unshift(thumbnail)
 
     const router = useRouter()
@@ -66,7 +67,7 @@ export default function Project({ project, bgImages, dataFields }) {
                         placeholder="blur"
                         blurDataURL={'/imgPlaceholder.gif'}
                     />
-                : <ReactPlayer playing={isFullscreen} controls={true} url={videoLinks[projectPicId]} width='100%' height='100%'/>
+                : <ReactPlayer playing={isFullscreen} controls={true} url={videoLinksCopy[projectPicId]} width='100%' height='100%'/>
                 }
                 <div 
                     style={{ position: 'fixed', zIndex:10, top: screen < 2 ? 80 : 30, left: screen < 2 ? 50 : 30, padding: 3, paddingBottom: 0, borderRadius: 3, cursor:'pointer'}} 
@@ -95,8 +96,8 @@ export default function Project({ project, bgImages, dataFields }) {
         return () => document.removeEventListener("keydown", escFunction, false)
     }, [])
     const [isVideo, setisVideo] = useRecoilState(isVideoState)
-    useEffect(() => { console.log(projectPicId < videoLinks.length)
-        setisVideo(projectPicId > videoLinks.length-1 ? false : true)
+    useEffect(() => {
+        setisVideo(projectPicId > videoLinksCopy.length-1 ? false : true)
     }, [projectPicId])
     useEffect(() => {
         setprojectPicId(0)
@@ -193,7 +194,7 @@ export default function Project({ project, bgImages, dataFields }) {
                             <div className={`${styles.smallImgWrap}`}>
                                 <div 
                                     className={`scaleHover transit ${styles.smallImgWrap}`}
-                                    >{index > videoLinks.length-1 ?
+                                    >{index > videoLinksCopy.length-1 ?
                                         <Image 
                                             alt='shotByPeter' 
                                             src={`https:${pic.fields.file.url}`}
@@ -204,7 +205,7 @@ export default function Project({ project, bgImages, dataFields }) {
                                             blurDataURL={'/imgPlaceholder.gif'}
                                         /> 
                                     : <><div onClick={() => setprojectPicId(index)} style={{ position: 'absolute', zIndex:9999, cursor: 'pointer', top: 0, left: 0, width: '100%', height: '100%'}}/>
-                                    <ReactPlayer playing={false} controls={false} url={videoLinks[index]} width='100%' height='100%'/>
+                                    <ReactPlayer playing={false} controls={false} url={videoLinksCopy[index]} width='100%' height='100%'/>
                                     </>
                                     }   
                                 </div>
@@ -217,7 +218,7 @@ export default function Project({ project, bgImages, dataFields }) {
                     <div className={`flexCenter ${styles.buttonBox}`}>
                         {getArrow(true)}
                         {getArrow()}
-                        {projectPicId > videoLinks.length-1 ? 
+                        {projectPicId > videoLinksCopy.length-1 ? 
                         <div className={`flexCenter transit ${styles.fullSWrap}`}>
                             {isProjectRoute && screen == 0 && 
                                 <div style={{ marginLeft: 10, cursor:'pointer' }} onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}>
@@ -249,7 +250,7 @@ export default function Project({ project, bgImages, dataFields }) {
                         borderRadius={dataFields.borderRadiusOfImagesImageSlider}
                         boxList={images.map((pic, index) => { 
                             return ( 
-                            <>{index > videoLinks.length-1 ?
+                            <>{index > videoLinksCopy.length-1 ?
                                 <Image 
                                     key={index}
                                     alt='shotByPeter' 
@@ -260,14 +261,14 @@ export default function Project({ project, bgImages, dataFields }) {
                                     placeholder="blur"
                                     blurDataURL={'/imgPlaceholder.gif'}
                                 />
-                                : <Player url={videoLinks[index]} />}
+                                : <Player url={videoLinksCopy[index]} />}
                             </>
                             )
                         })}
                     />
                 :   <Fade delay={0.2} duratio={0.8} scale={[0.8, 1]}>
                         <div className={`transit ${styles.bigImgWrap}`}>
-                        {projectPicId > videoLinks.length-1 ?
+                        {projectPicId > videoLinksCopy.length-1 ?
                             <Image
                                 alt='shotByPeter'             
                                 src={`https:${images[projectPicId == -1 ? 0 : projectPicId].fields.file.url}`}
@@ -277,7 +278,7 @@ export default function Project({ project, bgImages, dataFields }) {
                                 placeholder="blur"
                                 blurDataURL={'/imgPlaceholder.gif'}
                             />
-                            : <ReactPlayer playing={false} controls={false} url={videoLinks[projectPicId]} width='100%' height='100%'/>
+                            : <ReactPlayer playing={false} controls={false} url={videoLinksCopy[projectPicId]} width='100%' height='100%'/>
                         } 
                         </div>
                     </Fade>

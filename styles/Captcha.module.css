@@ -70,7 +70,7 @@
 }
 
 @media only screen and (max-width: 485px),
-            screen and (max-height: 786px) {
+            screen and (max-height: 764px) {
     .introBox{
         width: 345px;
         height: 117px;

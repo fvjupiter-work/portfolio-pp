@@ -88,7 +88,7 @@
 }
 
 @media only screen and (max-width: 860px),
-            screen and (max-height: 937px) { 
+            screen and (max-height: 900px) { 
     .con{height: 710px; padding: 0 8px;}
     .rightCon{
       width: 437px;
@@ -106,7 +106,8 @@
   
  /* mobile */
 @media only screen and (max-width: 485px),
-            screen and (max-height: 786px) {
+/* screen and (max-height: 786px) */
+            screen and (max-height: 764px) {
     .con{ height: 556px; padding: 0 7px; }
     .rightCon{ height: 556px; width: 344.5px; display: flex; }
     .leftCon{

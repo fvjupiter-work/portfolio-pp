@@ -144,7 +144,8 @@
 }
  /* small Desktop */
 @media only screen and (max-width: 860px),
-            screen and (max-height: 937px) {
+/* screen and (max-height: 937px) */
+            screen and (max-height: 900px) {
     .conHeightProject{ height: 786px; }
     .conWidthProject{ width: 455px; }
     .childrenBox{ padding: 9px 0; height: 728px;}
@@ -176,7 +177,8 @@
 
  /* mobile */
 @media only screen and (max-width: 485px),
-            screen and (max-height: 786px) {
+/* screen and (max-height: 786px) */
+            screen and (max-height: 764px) {
     .con{ height: 652px; width: 361px; }
     .childrenBox{ padding: 7px 0; height: 599px; }
     .childrenBoxSmallScreen{ height: 36px; }

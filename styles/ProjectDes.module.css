@@ -36,7 +36,7 @@
 }
 
 @media only screen and (max-width: 860px),
-            screen and (max-height: 937px) {
+            screen and (max-height: 900px) {
     .smallTitleBoxProject{
         opacity: 1;
     }
@@ -47,7 +47,7 @@
 
  /* mobile */
 @media only screen and (max-width: 485px),
-            screen and (max-height: 786px) {
+            screen and (max-height: 764px) {
     .smallTitleBoxProject{
         opacity: 1;
     }

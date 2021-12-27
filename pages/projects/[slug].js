@@ -29,7 +29,7 @@ import { useRouter } from 'next/router'
 import FullS from '../../components/svg/FullS'
 import X from '../../components/svg/X'
 import ReactPlayer from 'react-player/lazy'
-import { AiFillPlayCircle } from "react-icons/ai"
+import { AiFillPlayCircle, AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai"
 
 export default function Project({ project, bgImages, dataFields }) {
 
@@ -72,9 +72,17 @@ export default function Project({ project, bgImages, dataFields }) {
                 : <ReactPlayer playing={isFullscreen} controls={true} url={videoLinksCopy[projectPicId]} width='100%' height='100%'/>
                 }
                 <div 
-                    style={{ position: 'fixed', zIndex:10, top: screen < 2 ? 80 : 30, left: screen < 2 ? 50 : 30, padding: 3, paddingBottom: 0, borderRadius: 3, cursor:'pointer'}} 
+                    style={{ position: 'fixed', zIndex:10, top: 40, left: 40, borderRadius: 3, cursor:'pointer'}} 
                     onClick={() => {  handleFullscreen.exit(); setisFullscreen(false) }}>
                         <X />
+                </div>
+                <div style={{ position: 'fixed', zIndex:10, top: '50%', left: 40, cursor:'pointer' }}
+                    onClick={() => setprojectPicId(projectPicId > 0 ? projectPicId-1 : images.length-1)}>
+                    <AiOutlineArrowLeft size={28} color='white'/>
+                </div>
+                <div style={{ position: 'fixed', zIndex:10, top: '50%', right: 40, cursor:'pointer' }}
+                    onClick={() => setprojectPicId(projectPicId < images.length-1 ? projectPicId+1 : 0)}>
+                    <AiOutlineArrowRight size={28} color='white'/>
                 </div>
             </div>
         </FullScreen>
@@ -281,7 +289,7 @@ export default function Project({ project, bgImages, dataFields }) {
                                 placeholder="blur"
                                 blurDataURL={'/imgPlaceholder.gif'}
                             />
-                            : <ReactPlayer playing={false} controls={false} url={videoLinksCopy[projectPicId]} width='600' height='100%'/>
+                            : <div style={{ width: 600, height: '100%' }}><ReactPlayer playing={false} controls={false} url={videoLinksCopy[projectPicId]} width='600px' height='100%'/></div>
                         } 
                         </div>
                     </Fade>

@@ -41,6 +41,9 @@ export default function Project({ project, bgImages, dataFields }) {
     const router = useRouter()
     const isProjectRoute = router.pathname.split('/')[1] == 'projects'
 
+    // const [show_fullS_buttons, setshow_fullS_buttons] = useState(false)
+    // const [isMouseMove, setisMouseMove] = useState(false)
+
     // fullscreen
     const { handleFullscreen } = useContext(fullSContext)
     const [isFullscreen, setisFullscreen] = useRecoilState(isFullscreenState)
@@ -57,9 +60,9 @@ export default function Project({ project, bgImages, dataFields }) {
                 position: 'fixed',
                 top: 0, left: 0, bottom: 0, right: 0,
                 zIndex: 10000,
-                }} 
+                }}
                 >
-                { typeof images[projectPicId == -1 ? 0 : projectPicId] != 'string' ?
+                {typeof images[projectPicId == -1 ? 0 : projectPicId] != 'string' ?
                     <Image
                         alt='shotByPeter'             
                         src={`https:${images[projectPicId == -1 ? 0 : projectPicId].fields.file.url}`}
@@ -72,15 +75,15 @@ export default function Project({ project, bgImages, dataFields }) {
                 : <ReactPlayer playing={isFullscreen} controls={true} url={videoLinksCopy[projectPicId]} width='100%' height='100%'/>
                 }
                 <div 
-                    style={{ position: 'fixed', zIndex:10, top: 40, left: 40, borderRadius: 3, cursor:'pointer'}} 
+                    style={{ position: 'fixed', zIndex:10, top: screen > 0 ? 20 : 40, left: screen > 0 ? 20 : 40, borderRadius: 3, cursor:'pointer'}} 
                     onClick={() => {  handleFullscreen.exit(); setisFullscreen(false) }}>
                         <X />
                 </div>
-                <div style={{ position: 'fixed', zIndex:10, top: '50%', left: 40, cursor:'pointer' }}
+                <div style={{ position: 'fixed', zIndex:10, top: '50%', left: screen > 0 ? 20 : 40, cursor:'pointer' }}
                     onClick={() => setprojectPicId(projectPicId > 0 ? projectPicId-1 : images.length-1)}>
                     <AiOutlineArrowLeft size={28} color='white'/>
                 </div>
-                <div style={{ position: 'fixed', zIndex:10, top: '50%', right: 40, cursor:'pointer' }}
+                <div style={{ position: 'fixed', zIndex:10, top: '50%', right: screen > 0 ? 20 : 40, cursor:'pointer' }}
                     onClick={() => setprojectPicId(projectPicId < images.length-1 ? projectPicId+1 : 0)}>
                     <AiOutlineArrowRight size={28} color='white'/>
                 </div>

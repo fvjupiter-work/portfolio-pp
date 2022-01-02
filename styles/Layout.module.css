@@ -114,6 +114,7 @@
 }
 .textButtProject{
     display: none;
+    position: absolute;
     cursor: pointer;
 }
 .textButt{
@@ -153,13 +154,18 @@
     .infoBoxVar2{ height: 728px; }
     .infoBoxVar3{ height: 36px; }
     .controlsInnerBox{ width: 435px; }
-    .textButtProject{ display: block; padding-top: 2px;}
+    .controlsLeft{ width: 65px; }
+    .textButtProject{ 
+        display: block; 
+        padding-top: 2px;
+        left: 36px;
+    }
     .infoButtProject{ padding-top: 1px; }
     .fullSSvg{ height: 71px; width: 71px; }
     .fullSWrap{
         padding-top: 3.5px;
         position: absolute;
-        left: 78px;
+        left: 75px;
         height: 31.5px; 
         width: 28px;
         overflow: hidden;
@@ -167,9 +173,8 @@
         cursor: pointer;
     }
     .playWrap{
-        /* width: fit-content; */
         position: absolute;
-        left: 74.5px;
+        left: 73px;
         margin-bottom: 1px;
     }
     .screen{ width: 1px; }
@@ -198,12 +203,11 @@
         padding-top: 1px;
         width: 39px;
         height: 39px;
-        left: 94px;
+        left: 85px;
     }
     .playWrap{
-        /* width: fit-content; */
         position: absolute;
-        left: 94px;
+        left: 84px;
         padding-bottom: 1px;
         height: 34px;
         width: 34px;
@@ -214,7 +218,7 @@
     .controlsInnerBox{ width: 100%; }
     .controlsLeft{ width: 75px; }
     .controlsLeftProject{ width: 85px; }
-    .textButtProject{ padding-top: 4px; }
+    .textButtProject{ padding-top: 4px; left: 40px; }
     .infoButtProject{ padding-top: 1px; }
 
     .buttonBox{ width: 155.27px; }
@@ -244,23 +248,21 @@
         padding-top: 3px;
         width: 37px;
         height: 39px;
-        left: 74px;
+        left: 67px;
     }
     .playWrap{
-        /* width: fit-content; */
         position: absolute;
-        left: 76px;
+        left: 69.5px;
         padding-bottom: 1px;
         height: 28px;
         width: 28px;
-
     }
 
     .controlsCon{ height: 40.8px; width: 287.2px; }
     .controlsInnerBox{ width: 100%; }
     .controlsLeft{ width: 60px; }
     .controlsLeftProject{ width: 68px; }
-    .textButtProject{ padding-top: 3.2px;}
+    .textButtProject{ padding-top: 3.2px; left: 34px;}
     .infoButtProject{ padding-top: 0.8px; }
 
     .buttonBox{ width: 124.216px; }

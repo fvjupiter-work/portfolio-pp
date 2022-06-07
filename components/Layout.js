@@ -169,10 +169,14 @@ export default function Layout({ children }) {
                         <div className={`flexCenter ${styles.controlsLeft} 
                                 ${isProjectRoute ? styles.controlsLeftProject : ''}`
                             }>
-                            <div onClick={toggleInfo} className={`${isProjectRoute ? 
+                            <div onClick={() => { 
+                                    if(isImprint) setisImprint(false)
+                                    else toggleInfo()
+                                }} 
+                                className={`${isProjectRoute ? 
                                     styles.infoButtProject : styles.infoButt} flexCenter transit`
                                 }>
-                                <Info isClicked={isInfo} styles={styles}/>
+                                <Info isClicked={isInfo && !isImprint} styles={styles}/>
                             </div>
                             <div style={{ borderRadius: '100%' }} onClick={toggleProjectInfo} 
                                 className={`flexCenter ${isProjectRoute ? styles.textButtProject : styles.textButt}`}>

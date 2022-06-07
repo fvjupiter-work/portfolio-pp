@@ -122,7 +122,7 @@ export default function Layout({ children }) {
         </Head>
         <div className={styles.screen} ref={screenRef}/>
         <div style={{ position: 'fixed', color: 'rgb(150,150,150)', cursor: 'pointer', zIndex: 300, top: 2, left: 8, textDecoration: 'underline'}}
-            onClick={() => { setisInfo(true); setisImprint(true) }}>Imprint</div>
+            onClick={() => { setisInfo(isImprint ? false : true); setisImprint(isImprint ? false : true) }}>Imprint</div>
         <div className={styles.wrap}>
             <div 
                 className={`

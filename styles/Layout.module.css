@@ -23,7 +23,7 @@
     display: block;
     position: relative;
     border: 1px solid rgb(160, 160, 160);
-    box-shadow: 0 0 3px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.5);
     margin: auto;
     overflow: hidden;
     background: white;
@@ -144,9 +144,9 @@
     width: 0px;
 }
  /* small Desktop */
-@media only screen and (max-width: 860px),
+@media only screen and (max-width: 820px),
 /* screen and (max-height: 937px) */
-            screen and (max-height: 900px) {
+            screen and (max-height: 840px) {
     .conHeightProject{ height: 786px; }
     .conWidthProject{ width: 455px; }
     .childrenBox{ padding: 9px 0; height: 728px;}
@@ -227,7 +227,7 @@
 
     .screen{ width: 2px; }
 }
-@media only screen and (max-width: 400px),
+@media only screen and (max-width: 380px),
             screen and (max-height: 652px) {
     .con{ height: 521.6px; width: 288.8px; }
     .childrenBox{ padding: 6px 0; height: 479px; }

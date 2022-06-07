@@ -87,8 +87,8 @@
     margin-bottom: 20px;
 }
 
-@media only screen and (max-width: 860px),
-            screen and (max-height: 900px) { 
+@media only screen and (max-width: 820px),
+            screen and (max-height: 840px) { 
     .con{height: 710px; padding: 0 8px;}
     .rightCon{
       width: 437px;
@@ -118,7 +118,7 @@
         height: 556px;
       }
 }
-@media only screen and (max-width: 400px),
+@media only screen and (max-width: 380px),
             screen and (max-height: 652px) {
     .con{ height: 444.8px; padding: 0 5.6px; }
     .rightCon{ height: 444.8px; width: 275.6px; }

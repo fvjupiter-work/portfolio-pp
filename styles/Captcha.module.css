@@ -97,13 +97,13 @@
     }
     .picTitle{ 
         width: 71px; 
-        font-size: 11px; 
+        font-size: 13px; 
         padding-left: 4px; 
-        bottom: 17px;
-        height: 12px;
+        bottom: 19px;
+        height: 15px;
     }
     .picCheck{
-        bottom: 40px; 
+        bottom: 43px; 
         left: 68px;
     }
     .arrowSVG{
@@ -112,7 +112,7 @@
 
     }
 }
-@media only screen and (max-width: 400px),
+@media only screen and (max-width: 380px),
             screen and (max-height: 652px) {
     .introBox{
         width: 276px;
@@ -141,13 +141,13 @@
     }
     .picTitle{ 
         width: 56.8px; 
-        font-size: 8.8px; 
+        font-size: 10.4px; 
         padding-left: 3.2px; 
         bottom: 13.6px;
-        height: 9.6px;
+        height: 12px;
     }
     .picCheck{
-        bottom: 32px; 
+        bottom: 34px; 
         left: 54.4px;
     }
     .arrowSVG{

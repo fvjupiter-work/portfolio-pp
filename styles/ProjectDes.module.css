@@ -35,8 +35,8 @@
     overflow: scroll;
 }
 
-@media only screen and (max-width: 860px),
-            screen and (max-height: 900px) {
+@media only screen and (max-width: 820px),
+            screen and (max-height: 840px) {
     .smallTitleBoxProject{
         opacity: 1;
     }
@@ -58,7 +58,7 @@
     }
     .rightCon{ height: 557px; }
 }
-@media only screen and (max-width: 400px),
+@media only screen and (max-width: 380px),
             screen and (max-height: 652px) {
     .projectDesCon{
         width: 287.2px;

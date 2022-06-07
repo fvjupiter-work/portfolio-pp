@@ -83,10 +83,10 @@ a:active{
   touch-action: auto !important;
   z-index: 99999999;
 }
-@media only screen and (max-width: 400px),
+@media only screen and (max-width: 380px),
             screen and (max-height: 652px) {
   .font{
-    font-size: 10.4px;
-    line-height: 1.04;
+    font-size: 11.4px;
+    line-height: 1.14;
   }
 }

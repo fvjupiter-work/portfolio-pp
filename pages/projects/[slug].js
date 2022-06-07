@@ -42,16 +42,28 @@ export default function Project({ project, bgImages, dataFields }) {
     const isProjectRoute = router.pathname.split('/')[1] == 'projects'
 
     // const [show_fullS_buttons, setshow_fullS_buttons] = useState(false)
-    // const [isMouseMove, setisMouseMove] = useState(false)
 
     // fullscreen
     const { handleFullscreen } = useContext(fullSContext)
     const [isFullscreen, setisFullscreen] = useRecoilState(isFullscreenState)
     const getFullscreenBox = () => { 
-
-        // console.log(images[projectPicId == -1 ? 0 : projectPicId].fields.file)
         return(
         <FullScreen handle={handleFullscreen} className='fullscreen'>
+            {/* <div 
+                style={{
+                    position: 'fixed',
+                    display: isFullscreen ? 'block' : 'none',
+                    top: 0, left: 0, bottom: 0, right: 0,
+                    zIndex: 100000,
+                }}
+                onMouseOver={() => {
+                    setshow_fullS_buttons(true)
+                    console.log('mouseover')
+                    setTimeout(() => {
+                        setshow_fullS_buttons(false)
+                    }, 2000);
+                }}
+            /> */}
             <div style={{
                 background: 'black', 
                 display: isFullscreen ? 'flex' : 'none',
@@ -61,6 +73,7 @@ export default function Project({ project, bgImages, dataFields }) {
                 top: 0, left: 0, bottom: 0, right: 0,
                 zIndex: 10000,
                 }}
+                
                 >
                 {typeof images[projectPicId == -1 ? 0 : projectPicId] != 'string' ?
                     <Image
@@ -75,7 +88,8 @@ export default function Project({ project, bgImages, dataFields }) {
                 : <ReactPlayer playing={isFullscreen} controls={true} url={videoLinksCopy[projectPicId]} width='100%' height='100%'/>
                 }
                 <div 
-                    style={{ position: 'fixed', zIndex:10, top: screen > 0 ? 20 : 40, left: screen > 0 ? 20 : 40, borderRadius: 3, cursor:'pointer'}} 
+                    style={{ //opacity: show_fullS_buttons ? 1 : 0, 
+                        position: 'fixed', zIndex:10, top: screen > 0 ? 20 : 40, left: screen > 0 ? 20 : 40, borderRadius: 3, cursor:'pointer'}} 
                     onClick={() => {  handleFullscreen.exit(); setisFullscreen(false) }}>
                         <X />
                 </div>
@@ -160,28 +174,6 @@ export default function Project({ project, bgImages, dataFields }) {
     useEffect(() => setSmallImgBox_height(), [screen])
 
     const [isPlayHover, setisPlayHover] = useState(false)
-    const Player = ({ url }) => {
-        const [isReady, setisReady] = useState(false)
-        // setTimeout(() => { 
-        //     setisReady(true)
-        // }, 1000);
-        return(
-            <>
-                {/* {!isReady ?
-                <Image 
-                    src={'/imgPlaceholder.gif'}
-                    layout='fill'
-                    objectFit='cover'
-                    objectPosition='50% 50%'
-                    placeholder="blur"
-                    blurDataURL={'/imgPlaceholder.gif'}
-                /> 
-                :   */}
-                <ReactPlayer playing={false} controls={false} url={url} width='100%' height='100%' onReady={()=> setisReady(true)}/>
-                 {/* } */}
-            </>
-        )
-    }
     
     return <>{getFullscreenBox()}
         <div className={`${styles.con}`}>

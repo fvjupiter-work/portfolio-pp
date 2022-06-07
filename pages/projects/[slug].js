@@ -20,8 +20,8 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 import Fade from '../../components/Fade'
 import Slide from '../../components/Slide'
-import ArrowRight from '../../components/svg/ArrowRight'
-import ArrowLeft from '../../components/svg/ArrowLeft'
+// import BsChevronRight from '../../components/svg/BsChevronRight'
+// import BsChevronLeft from '../../components/svg/BsChevronLeft'
 import styles from '../../styles/Project.module.css'
 
 import { FullScreen } from "react-full-screen";
@@ -29,7 +29,9 @@ import { useRouter } from 'next/router'
 import FullS from '../../components/svg/FullS'
 import X from '../../components/svg/X'
 import ReactPlayer from 'react-player/lazy'
-import { AiFillPlayCircle, AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai"
+import { AiFillPlayCircle } from "react-icons/ai"
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+
 
 export default function Project({ project, bgImages, dataFields }) {
 
@@ -95,11 +97,11 @@ export default function Project({ project, bgImages, dataFields }) {
                 </div>
                 <div style={{ position: 'fixed', zIndex:10, top: '50%', left: screen > 0 ? 20 : 40, cursor:'pointer' }}
                     onClick={() => setprojectPicId(projectPicId > 0 ? projectPicId-1 : images.length-1)}>
-                    <AiOutlineArrowLeft size={28} color='white'/>
+                    <BsChevronLeft size={28} color='white'/>
                 </div>
                 <div style={{ position: 'fixed', zIndex:10, top: '50%', right: screen > 0 ? 20 : 40, cursor:'pointer' }}
                     onClick={() => setprojectPicId(projectPicId < images.length-1 ? projectPicId+1 : 0)}>
-                    <AiOutlineArrowRight size={28} color='white'/>
+                    <BsChevronRight size={28} color='white'/>
                 </div>
             </div>
         </FullScreen>
@@ -146,7 +148,7 @@ export default function Project({ project, bgImages, dataFields }) {
                 else setprojectPicId(projectPicId > 0 ? projectPicId-1 : images.length-1)
             }}
         className={`flexCenter transit ${styles.arrowWrap}`}>
-        {turn ? <ArrowLeft /> : <ArrowRight /> }
+        {turn ? <BsChevronLeft /> : <BsChevronRight /> }
     </div>
 
     // OPTIONS FOR RICHTEXT RENDERER
@@ -226,17 +228,25 @@ export default function Project({ project, bgImages, dataFields }) {
                         {projectPicId > videoLinksCopy.length-1 ? 
                         <div className={`flexCenter transit ${styles.fullSWrap}`}>
                             {isProjectRoute && screen == 0 && 
-                                <div style={{ marginLeft: 10, cursor:'pointer' }} onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}>
-                            <FullS styles={styles}/> 
-                        </div>}</div>
-                        : <AiFillPlayCircle size={27} 
-                            onMouseEnter={() => setisPlayHover(true)} 
-                            onMouseLeave={() => setisPlayHover(false)} 
-                            color={isPlayHover ? '#E6E6E6' : '#808080'} 
-                            style={{ marginBottom: 3, marginLeft: 1, cursor: 'pointer' }}
-                            className={'transit'}
-                            onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}
-                            />
+                                <div style={{ marginLeft: 0, width: '100%', cursor:'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}} onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}>
+                            {/* <FullS styles={styles}/>  */}
+                               <div style={{ height: '14px', width: '14px', border: '1px solid black'}}/> Fullscreen
+                            </div>}
+                        </div>
+                        : 
+                        // <AiFillPlayCircle size={27} 
+                        //     onMouseEnter={() => setisPlayHover(true)} 
+                        //     onMouseLeave={() => setisPlayHover(false)} 
+                        //     color={isPlayHover ? '#E6E6E6' : '#808080'} 
+                        //     style={{ marginBottom: 3, marginLeft: 1, cursor: 'pointer' }}
+                        //     className={'transit'}
+                        //     onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}
+                        //     />
+                        <div style={{ display: 'flex', alignItems: 'center', }} className={`transit ${styles.fullSWrap}`}>
+                            <div style={{ cursor:'pointer', display: 'flex', alignItems: 'center', width: '48px', fontSize: 13, marginLeft: 0 }}>
+                                <div style={{ height: '14px', width: '14px', border: '1px solid black'}}/><span style={{ paddingLeft: 4 }}>play</span>
+                            </div>
+                        </div>
                         }
                     </div>
                     <div className={`font ${styles.title}`}>{title}</div>

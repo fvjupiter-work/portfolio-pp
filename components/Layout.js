@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, createContext } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { 
+    isImprintState, 
     isInfoState, 
     chosenProjectSlugState, 
     projectDataState, 
@@ -40,6 +41,7 @@ export default function Layout({ children }) {
 
 
     // navigation states
+    const [isImprint, setisImprint] = useRecoilState(isImprintState)
     const [isInfo, setisInfo] = useRecoilState(isInfoState)
     const toggleInfo = () => { setisInfo(!isInfo); setisProjectInfo(false) }
     const [isProjectInfo, setisProjectInfo] = useRecoilState(isProjectInfoState)
@@ -61,6 +63,8 @@ export default function Layout({ children }) {
         setaccentColorHover(`rgba${accentColor.slice(3, -1)}, 0.7)`)
     }
     useEffect(() => { calcAccentColorHover() }, [accentColor])
+
+    useEffect(() => { if(!isInfo) setisImprint(false) }, [isInfo])
 
     const disabled = !chosenProjectSlug && pathname == '/' && !isInfo
     const [shuffleRotate, setshuffleRotate] = useState(0)
@@ -117,6 +121,8 @@ export default function Layout({ children }) {
             <link rel="icon" type="image/png" href="/peterFavicon.png" />
         </Head>
         <div className={styles.screen} ref={screenRef}/>
+        <div style={{ position: 'fixed', color: 'rgb(150,150,150)', cursor: 'pointer', zIndex: 300, top: 2, left: 8, textDecoration: 'underline'}}
+            onClick={() => { setisInfo(true); setisImprint(true) }}>Imprint</div>
         <div className={styles.wrap}>
             <div 
                 className={`

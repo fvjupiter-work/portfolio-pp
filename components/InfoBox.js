@@ -112,12 +112,21 @@ export default function InfoBox({ isProjectRoute }) {
                     <br/><br/>
                     <span style={{ textDecoration: 'underline'}}>Credits:</span>
                     <br/><br/>
-                    Design: <a href="https://www.justusgelberg.com/" 
-                    rel="noreferrer" 
-                    target='_blank'>Justus Gelberg</a><br/>
-                    Development: <a href="https://synesthesigns.com/" 
-                    rel="noreferrer" 
-                    target='_blank'>Frederik Schoof</a><br/><br/>
+                    Design: 
+                    {/* <a href="https://www.justusgelberg.com/" 
+                        rel="noreferrer" 
+                        target='_blank'
+                        > */}
+                            Justus Gelberg
+                    {/* </a> */}
+                    <br/>
+                    Development: 
+                    {/* <a href="https://synesthesigns.com/" 
+                        rel="noreferrer" 
+                        target='_blank'> */}
+                        Frederik Schoof
+                        {/* </a> */}
+                        <br/><br/>
 
                     <span style={{ textDecoration: 'underline'}}>Contact:</span><br/><br/>
 

@@ -20,16 +20,20 @@ import InfoBox from './InfoBox'
 import ProjectDes from './ProjectDes'
 import Shuffle from './svg/Shuffle'
 import Info from './svg/Info'
-import TextButton from './svg/TextButton'
 import { GrTextAlignFull } from "react-icons/gr";
+import { RiFullscreenLine } from "react-icons/ri";
+import { AiFillPlayCircle, AiOutlinePlayCircle } from "react-icons/ai"
+import { VscInfo } from "react-icons/vsc";
+import { MdOutlinePlayCircleFilled } from "react-icons/md";
+
+
 
 import Image from 'next/image'
 import styles from '../styles/Layout.module.css'
 
 import { BsFullscreen, BsFullscreenExit } from "react-icons/bs"
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import FullS from './svg/FullS'
-import { AiFillPlayCircle } from "react-icons/ai"
+
 
 
 export default function Layout({ children }) {
@@ -123,9 +127,9 @@ export default function Layout({ children }) {
             <link rel="icon" type="image/png" href="/peterFavicon.png" />
         </Head>
         <div className={styles.screen} ref={screenRef}/>
-        <div style={{ position: 'fixed', color: 'rgb(150,150,150)', cursor: 'pointer', zIndex: 300, top: 2, left: 8, textDecoration: 'underline'}}
+        <div style={{ fontSize: screen == 3 ? 11.4 : 13, position: 'fixed', color: 'rgb(150,150,150)', cursor: 'pointer', zIndex: 300, top: screen == 0 ? 10 : 2, left: screen == 0 ? 14 : 7, textDecoration: 'underline'}}
             onClick={() => { setisInfo(isImprint ? false : true); setisImprint(isImprint ? false : true) }}>Imprint</div>
-        <div className={styles.wrap}>
+        <div className={`${styles.wrap} ${screen == 2 && 'scale-95'}`}>
             <div 
                 className={`
                     ${styles.con} ${isProjectRoute 
@@ -164,83 +168,103 @@ export default function Layout({ children }) {
                     <ProjectDes show={isProjectRoute && !isInfo}/>
                 </div>
 
-                <div className={`flexCenter ${styles.controlsCon}`}>
-                    <div className={`flexCenter ${styles.controlsInnerBox} 
-                            ${isProjectRoute ? styles.controlsInnerBox : ''}`
-                        }>
-                        <div className={`flexCenter ${styles.controlsLeft} 
-                                ${isProjectRoute ? styles.controlsLeftProject : ''}`
-                            }>
-                            <div onClick={() => { 
+                <div className={`between ${styles.controlsCon}`}>
+                    <div className={`center h-full`}>
+                        <div className={!isProjectRoute && `rounded-full bg-gray hover:bg-gray-light ${isInfo && !isImprint && 'bg-gray-light'} duration-300 overflow-hidden mr-2`}>
+                            <VscInfo 
+                                onClick={() => { 
                                     if(isImprint) setisImprint(false)
                                     else toggleInfo()
-                                }} 
-                                className={`${isProjectRoute ? 
-                                    styles.infoButtProject : styles.infoButt} flexCenter transit`
-                                }>
-                                <Info isClicked={isInfo && !isImprint} styles={styles}/>
-                            </div>
-                            {/* <div onClick={toggleProjectInfo} 
-                                className={`flexCenter ${isProjectRoute ? styles.textButtProject : styles.textButt}`}> */}
-                                {/* <TextButton isClicked={isProjectInfo} styles={styles}/> */}
-                            <GrTextAlignFull onClick={toggleProjectInfo} size={30} className={`button-styles`}/>
-                            {/* </div>  */}
-                            {pathname == '/' ?
-                                <div 
-                                    style={{ transform: `rotate(${shuffleRotate}deg)`}}
-                                    onClick={!isInfo ? shuffle : null}
-                                    className={`flexCenter ${styles.shuffleWrap}`}
-                                    >
-                                        <Shuffle styles={styles}/>
-                                </div> 
-                            : null}
-                        </div>
-                        {!isVideo ? 
-                            <div className={`flexCenter transit ${styles.fullSWrap}`}>{isProjectRoute && screen > 0 && 
-                                <div style={{ cursor:'pointer' }} onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}>
-                                    <FullS styles={styles}/>
-                                </div>}
-                            </div> 
-                        : isProjectRoute && screen > 0 && 
-                            <AiFillPlayCircle size={27} 
-                            onMouseEnter={() => setisPlayHover(true)} 
-                            onMouseLeave={() => setisPlayHover(false)} 
-                            color={isPlayHover ? '#E6E6E6' : '#808080'} 
-                            className={'transit ' + styles.playWrap}
-                            onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}
-                            />
-                        }
-                        <div className={`flexCenter ${styles.buttonBox}`}>
-                            <div 
-                                style={{ 
-                                    background: disabled ? 'rgb(128,128,128)' 
-                                        : buttonHover == 1 ? 
-                                        accentColorHover 
-                                        : accentColor,
-                                    color: disabled ? 'rgb(200,200,200)' : data.isTextColorIntroWhite ? 'white' : 'black',
-                                    cursor: disabled && 'default',
                                 }}
-                                onClick={toggleButt1}
-                                onMouseEnter={() => setbuttonHover(1)}
-                                onMouseLeave={() => setbuttonHover(-1)}
-                                className={`font flexCenter ${styles.button} transit`}
-                                >
-                                    {pathname != '/' || isInfo ? 'go back' : 'see more'}
-                            </div>
-                            <a href={`mailto:${data.mailAddress}`} style={{textDecoration: 'none'}}>
-                                <div style={{ 
-                                        background: buttonHover == 2 ? accentColorHover : accentColor,
-                                        color: data.isTextColorIntroWhite ? 'white' : 'black'
-                                    }} 
-                                    onMouseEnter={() => setbuttonHover(2)}
-                                    onMouseLeave={() => setbuttonHover(-1)}
-                                    className={`font flexCenter ${styles.button} ${styles.buttonContact} transit`}>
-                                    contact
-                                </div>
-                            </a>
+                                size={screen < 2 ? 28 : screen < 3 ? 34 : 30}
+                                className={`
+                                    button-styles
+                                    ${isInfo && 'text-gray-light'}
+                                    ${!isProjectRoute && 'text-white scale-125 hover:text-white mr-0'}
+                                `}
+                            />
                         </div>
+                        {isProjectRoute ? 
+                            <>
+                                <GrTextAlignFull 
+                                    onClick={toggleProjectInfo} 
+                                    size={screen < 2 ? 26 : screen < 3 ? 32 : 28} 
+                                    className={`
+                                        button-styles 
+                                        ${isProjectInfo && 'text-gray-light'} 
+                                        ${screen < 1 && 'hidden'}
+                                    `}
+                                />
+                                {isVideo ?
+                                    <AiOutlinePlayCircle
+                                        onClick={() => { 
+                                            setisFullscreen(true)
+                                            handleFullscreen.enter() 
+                                        }}
+                                        size={screen < 2 ? 28 : screen < 3 ? 34 : 30}
+                                        className={`
+                                            button-styles
+                                            ${screen < 1 && 'hidden'}
+                                        `}
+                                    />
+                                :
+                                    <RiFullscreenLine 
+                                        onClick={() => { 
+                                            setisFullscreen(true)
+                                            handleFullscreen.enter() 
+                                        }}
+                                        size={screen < 2 ? 26 : screen < 3 ? 32 : 28} 
+                                        className={`
+                                            button-styles
+                                            ${screen < 1 && 'hidden'}
+                                        `}
+                                    />
+                                }
+                            </>
+                        : 
+                            <div 
+                                style={{ transform: `rotate(${shuffleRotate}deg)`}}
+                                onClick={!isInfo ? shuffle : null}
+                                className={`flexCenter ${styles.shuffleWrap}`}
+                                >
+                                    <Shuffle styles={styles}/>
+                            </div> 
+                        }
+                        
+                        
+                    </div>
+
+                    <div className={`flexCenter ${styles.buttonBox}`}>
+                        <div 
+                            style={{ 
+                                background: disabled ? 'rgb(128,128,128)' 
+                                    : buttonHover == 1 ? 
+                                    accentColorHover 
+                                    : accentColor,
+                                color: disabled ? 'rgb(200,200,200)' : data.isTextColorIntroWhite ? 'white' : 'black',
+                                cursor: disabled && 'default',
+                            }}
+                            onClick={toggleButt1}
+                            onMouseEnter={() => setbuttonHover(1)}
+                            onMouseLeave={() => setbuttonHover(-1)}
+                            className={`font flexCenter ${styles.button} transit`}
+                            >
+                                {pathname != '/' || isInfo ? 'go back' : 'see more'}
+                        </div>
+                        <a href={`mailto:${data.mailAddress}`} style={{textDecoration: 'none'}}>
+                            <div style={{ 
+                                    background: buttonHover == 2 ? accentColorHover : accentColor,
+                                    color: data.isTextColorIntroWhite ? 'white' : 'black'
+                                }} 
+                                onMouseEnter={() => setbuttonHover(2)}
+                                onMouseLeave={() => setbuttonHover(-1)}
+                                className={`font flexCenter ${styles.button} ${styles.buttonContact} transit`}>
+                                contact
+                            </div>
+                        </a>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

@@ -26,10 +26,10 @@ import styles from '../../styles/Project.module.css'
 
 import { FullScreen } from "react-full-screen";
 import { useRouter } from 'next/router'
-import FullS from '../../components/svg/FullS'
+// import FullS from '../../components/svg/FullS'
 import X from '../../components/svg/X'
 import ReactPlayer from 'react-player/lazy'
-import { AiFillPlayCircle } from "react-icons/ai"
+// import { AiFillPlayCircle } from "react-icons/ai"
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 
@@ -222,34 +222,35 @@ export default function Project({ project, bgImages, dataFields }) {
                     </Fade>)}
                 </div>
                 <div className={`${styles.contentCon}`} ref={contentConRef}>
-                    <div className={`flexCenter ${styles.buttonBox}`}>
+                    <div className={`font ${styles.title}`}>{title}</div>
+                    <div className={`flexCenter mb-5 ${styles.buttonBox}`}>
                         {getArrow(true)}
                         {getArrow()}
                         {projectPicId > videoLinksCopy.length-1 ? 
-                        <div className={`flexCenter transit ${styles.fullSWrap}`}>
-                            {isProjectRoute && screen == 0 && 
-                                <div style={{ marginLeft: 0, width: '100%', cursor:'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}} onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}>
-                            {/* <FullS styles={styles}/>  */}
-                               <div style={{ height: '14px', width: '14px', border: '1px solid black'}}/> Fullscreen
-                            </div>}
-                        </div>
-                        : 
-                        // <AiFillPlayCircle size={27} 
-                        //     onMouseEnter={() => setisPlayHover(true)} 
-                        //     onMouseLeave={() => setisPlayHover(false)} 
-                        //     color={isPlayHover ? '#E6E6E6' : '#808080'} 
-                        //     style={{ marginBottom: 3, marginLeft: 1, cursor: 'pointer' }}
-                        //     className={'transit'}
-                        //     onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}
-                        //     />
-                        <div style={{ display: 'flex', alignItems: 'center', }} className={`transit ${styles.fullSWrap}`}>
-                            <div style={{ cursor:'pointer', display: 'flex', alignItems: 'center', width: '48px', fontSize: 13, marginLeft: 0 }}>
-                                <div style={{ height: '14px', width: '14px', border: '1px solid black'}}/><span style={{ paddingLeft: 4 }}>play</span>
+                            <div className={`flexCenter transit ${styles.fullSWrap}`}>
+                                {isProjectRoute && screen == 0 && 
+                                    <div style={{ marginLeft: 0, width: '100%', cursor:'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}} onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}>
+                                {/* <FullS styles={styles}/>  */}
+                                <div style={{ height: '14px', width: '14px', border: '1px solid black'}}/><span style={{ paddingLeft: 6 }}>Fullscreen</span>
+                                </div>}
                             </div>
-                        </div>
+                            : 
+                            // <AiFillPlayCircle size={27} 
+                            //     onMouseEnter={() => setisPlayHover(true)} 
+                            //     onMouseLeave={() => setisPlayHover(false)} 
+                            //     color={isPlayHover ? '#E6E6E6' : '#808080'} 
+                            //     style={{ marginBottom: 3, marginLeft: 1, cursor: 'pointer' }}
+                            //     className={'transit'}
+                            //     onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}
+                            //     />
+                            <div style={{ display: 'flex', alignItems: 'center', }} className={`transit ${styles.fullSWrap}`}>
+                                <div style={{ cursor:'pointer', display: 'flex', alignItems: 'center', width: '48px', fontSize: 13, marginLeft: 0 }} onClick={() => { setisFullscreen(true); handleFullscreen.enter() }}>
+                                    <div style={{ height: '14px', width: '14px', border: '1px solid black'}}/><span style={{ paddingLeft: 6 }}>play</span>
+                                </div>
+                            </div>
                         }
                     </div>
-                    <div className={`font ${styles.title}`}>{title}</div>
+                    
                     <div className={`font ${styles.content}`}>
                         {documentToReactComponents(description, richText_Options)}
                     </div>

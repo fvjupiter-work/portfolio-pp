@@ -112,7 +112,7 @@
     padding-top: 2px;
     cursor: pointer;
 }
-.textButtProject{
+/* .textButtProject{
     display: none;
     position: absolute;
     cursor: pointer;
@@ -120,7 +120,7 @@
 .textButt{
     display: none;
     cursor: pointer;
-}
+} */
 
 .buttonBox{
     justify-content: space-between;

@@ -107,7 +107,7 @@ export default function InfoBox({ isProjectRoute }) {
             {isImprint ?
             <div>
                 <div style={{ marginTop: -15}} ref={imprintTopRef}/>
-                <div style={{ padding: '15px 15px 15px 15px' }}>
+                <div style={{ padding: '15px 15px 15px 15px', fontSize: screen == 3 ? 11.4 : 13 }} className={``}>
                     <span style={{ textDecoration: 'underline'}}>Imprint</span>
                     <br/><br/>
                     <span style={{ textDecoration: 'underline'}}>Credits:</span>

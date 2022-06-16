@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import React from 'react'
 import { RecoilRoot } from 'recoil'
-import Layout from '../components/Layout'
+import Layout from '../components/LayoutNew'
 
 function MyApp({ Component, pageProps }) {
   return <>

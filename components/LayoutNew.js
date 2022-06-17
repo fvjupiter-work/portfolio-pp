@@ -24,7 +24,9 @@ import { GrTextAlignFull } from "react-icons/gr";
 import { RiFullscreenLine } from "react-icons/ri";
 import { AiFillPlayCircle, AiOutlinePlayCircle } from "react-icons/ai"
 import { VscInfo } from "react-icons/vsc";
-import { MdOutlinePlayCircleFilled } from "react-icons/md";
+import { MdOutlinePlayCircleFilled, MdRefresh } from "react-icons/md";
+import { IoMdRefresh } from "react-icons/io";
+
 
 
 
@@ -170,17 +172,17 @@ export default function Layout({ children }) {
 
                 <div className={`between ${styles.controlsCon}`}>
                     <div className={`center h-full`}>
-                        <div className={!isProjectRoute && `rounded-full bg-gray hover:bg-gray-light ${isInfo && !isImprint && 'bg-gray-light'} duration-300 overflow-hidden mr-2`}>
+                        <div className={!isProjectRoute && `center rounded-full bg-gray hover:bg-gray-light ${isInfo && !isImprint && 'bg-gray-light'} duration-300 overflow-hidden mr-2`}>
                             <VscInfo 
                                 onClick={() => { 
                                     if(isImprint) setisImprint(false)
                                     else toggleInfo()
                                 }}
-                                size={screen < 2 ? 28 : screen < 3 ? 34 : 30}
+                                size={screen < 2 ? 24 : screen < 3 ? 32 : 26}
                                 className={`
                                     button-styles
                                     ${isInfo && 'text-gray-light'}
-                                    ${!isProjectRoute && 'text-white scale-125 hover:text-white mr-0'}
+                                    ${!isProjectRoute && 'text-white scale-[1.4] hover:text-white mr-0'}
                                 `}
                             />
                         </div>
@@ -188,7 +190,7 @@ export default function Layout({ children }) {
                             <>
                                 <GrTextAlignFull 
                                     onClick={toggleProjectInfo} 
-                                    size={screen < 2 ? 26 : screen < 3 ? 32 : 28} 
+                                    size={screen < 2 ? 22 : screen < 3 ? 30 : 24} 
                                     className={`
                                         button-styles 
                                         ${isProjectInfo && 'text-gray-light'} 
@@ -201,7 +203,7 @@ export default function Layout({ children }) {
                                             setisFullscreen(true)
                                             handleFullscreen.enter() 
                                         }}
-                                        size={screen < 2 ? 28 : screen < 3 ? 34 : 30}
+                                        size={screen < 2 ? 24 : screen < 3 ? 32 : 26}
                                         className={`
                                             button-styles
                                             ${screen < 1 && 'hidden'}
@@ -213,7 +215,7 @@ export default function Layout({ children }) {
                                             setisFullscreen(true)
                                             handleFullscreen.enter() 
                                         }}
-                                        size={screen < 2 ? 26 : screen < 3 ? 32 : 28} 
+                                        size={screen < 2 ? 22 : screen < 3 ? 30 : 24} 
                                         className={`
                                             button-styles
                                             ${screen < 1 && 'hidden'}
@@ -229,6 +231,12 @@ export default function Layout({ children }) {
                                 >
                                     <Shuffle styles={styles}/>
                             </div> 
+                            // <IoMdRefresh 
+                            //     style={{ transform: `rotate(${shuffleRotate}deg)`}}
+                            //     onClick={!isInfo ? shuffle : null}
+                            //     size={40}
+                            //     className={`duration-300`}
+                            // />
                         }
                         
                         
